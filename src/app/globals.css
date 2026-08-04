@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+--font-sans: var(--font-roboto), sans-serif;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Наш кастомный normalize / reset */
+@layer base {
+  *, ::before, ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+/* Жестко прописываем Roboto для всех тегов, чтобы перебить остатки Arial */
+  html, body, p, h1, h2, h3, h4, h5, h6, span, a, button, input, textarea {
+    font-family: var(--font-roboto), sans-serif !important;
+  }
+  body {
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+button,
+select,
+option,
+input{
+  cursor: pointer;
+
+}
+button:hover,
+button:focus,
+button:active,
+select:hover,
+select:focus,
+select:active,
+option:hover,
+option:focus,
+option:active,
+input:hover,
+input:focus,
+input:active {
+  border-color: #052e70; /* Эквивалент border-blue-500 */
+}
+}
