@@ -55,6 +55,7 @@
       "female": "Женщина"
     },
     "genderText": "Укажи свой пол",
+
     "age": "Возраст:",
     "placeholder2": "Возраст",
     "ageText": "Укажи свой возраст",
@@ -196,9 +197,6 @@
     "full_analysis_button": "Заказать полный разбор"
   },
 
-
-
-
   "CoupleResult": {
     "title": "Результат анализа пары:",
     "full_analysis": "Полный разбор: ",
@@ -218,17 +216,17 @@
   },
 
   "LonersFullResultContent": {
-    "title": "Результат вашего личного анализа:",
-    "text1title": "@@@@@@@@@@",
-    "text1": "@@@@@@@@@@",
-    "text2title": "@@@@@@@@@@",
-    "text2": "@@@@@@@@@@"
+    "title": "Результат вашего личного анализа",
+    "text1title": "Это поможет разобраться в себе",
+    "text1": "Анализ покажет ваши скрытые установки, блоки и истинные причины сложностей в сфере сексуальности.",
+    "text2title": "Пройдите дополнительную анкету и ответьте на важные вопросы",
+    "text2": "Чем искреннее ответы, тем точнее будет результат."
   },
 
-"LonersFullResultForm":{
+  "LonersFullResultForm": {
     "title": "Дополнительная анкета",
 
- "sexualDesireFrequency": "Как часто у тебя возникает сексуальное желание?",
+    "sexualDesireFrequency": "Как часто у тебя возникает сексуальное желание?",
     "placeholder20": "Выберите вариант",
     "sexualDesireFrequencyOptions": {
       "almostEveryDay": "Почти каждый день",
@@ -237,10 +235,9 @@
       "lessThanOnceAWeek": "Очень редко / почти не возникает",
       "dependsOnMood": "Сильно зависит от настроения и обстоятельств"
     },
-    "sexualDesireFrequencyText": "@@@@@@@@@@",
+    "sexualDesireFrequencyText": "Это нужно для того, чтобы точнее определить ваш текущий уровень энергии и темперамент",
 
-
-    "sexualDesireTriggers":"Что чаще всего запускает твоё желание?",
+    "sexualDesireTriggers": "Что чаще всего запускает твоё желание?",
     "placeholder21": "Выберите вариант",
     "sexualDesireTriggersOptions": {
       "emotionalCloseness": "Эмоциональная близость и разговоры",
@@ -250,130 +247,120 @@
       "spontaneity": "Спонтанно, без особых причин",
       "dependsOnMood": "Зависит от настроения"
     },
-    "sexualDesireTriggersText": "@@@@@@@@@@",
-
+    "sexualDesireTriggersText": "Это влияет на формирование рекомендаций по раскрытию твоего потенциала и улучшению отношений.",
 
     "preludeImportance": "Насколько тебе важна прелюдия?",
     "placeholder22": "Выберите вариант",
     "preludeImportanceOptions": {
       "veryImportant": "Очень важна, без неё почти не получается",
       "important": "Важна, люблю долгую прелюдию",
-      "middle":"Средне, могу и с короткой"  ,
+      "middle": "Средне, могу и с короткой",
       "notSoImportant": "Не особенно важна"
     },
-    "preludeImportanceText": "@@@@@@@@@@",
+    "preludeImportanceText": "Это поможет понять твой стиль соблазнения и то, насколько ты ценишь чувственную составляющую в сексе.",
 
+    "initiativePartner": "Кто чаще проявляет инициативу?",
+    "placeholder23": "Выберите вариант",
+    "initiativOptions": {
+      "usualyMe": "Обычно я",
+      "usualyPartner": "Обычно партнёр",
+      "aboutEqual": "Примерно поровну",
+      "dependsOnSituation": "Зависит от ситуации",
+      "hardToInitiate": "Мне сложно проявлять инициативу"
+    },
+    "initiativText": "Это влияет на анализ твоей модели взаимодействия с партнёром и подбор рекомендаций по сближению.",
 
+    "experimentsAttitude": "Как ты относишься к экспериментам в сексе?",
+    "placeholder24": "Выберите вариант",
+    "experimentsAttitudeOptions": {
+      "veryOpen": "Очень открыт(-а), люблю пробовать новое",
+      "openWithCaution": "В целом открыт(-а), но с осторожностью",
+      "likeFamiliar": "Нравится привычное и проверенное",
+      "closedToExperiments": "Скорее закрыт(-а) к экспериментам"
+    },
+    "experimentsAttitudeText": "Это нужно для того, чтобы определить твой уровень гибкости и границы комфорта в интимной сфере",
 
-  "initiativePartner": "Кто чаще проявляет инициативу?",
-  "placeholder23": "Выберите вариант",
-"initiativOptions": {
-  "usualyMe": "Обычно я",
-  "usualyPartner": "Обычно партнёр",
-  "aboutEqual": "Примерно поровну",
-  "dependsOnSituation": "Зависит от ситуации",
-  "hardToInitiate": "Мне сложно проявлять инициативу"
-},
-"initiativText": "@@@@@@@@@@",
+    "feelingWanted": "Насколько тебе важно чувствовать себя желанным(-ой)?  ",
+    "placeholder25": "Выберите вариант  ",
+    "feelingWantedOptions": {
+      "critical": "Критически важно ",
+      "veryImportant": "Очень важно",
+      "important": "Важно, но не на первом месте",
+      "notSoImportant": "Не очень важно"
+    },
+    "feelingWantedText": "Определяет степень твоей чувствительности к знакам внимания и внешнему подтверждению любви.",
 
+    "biggestBlock": "Что для тебя является самым большим блоком в интимной жизни?  ",
+    "placeholder26": "Выберите вариант ",
+    "biggestBlockOptions": {
+      "anxiety": "Стеснение / зажатость",
+      "stress": "Усталость и стресс",
+      "arousalIssues": "Сложности с возбуждением",
+      "insecurity": "Страх осуждения",
+      "loneliness": "Отсутствие подходящего партнёра  ",
+      "none": "Почти нет блоков"
+    },
+    "biggestBlockText": "Формирует персональный план по мягкому преодолению страхов и снятию зажатости.",
 
-"experimentsAttitude": "Как ты относишься к экспериментам в сексе?",
-"placeholder24": "Выберите вариант",
-"experimentsAttitudeOptions": {
-  "veryOpen": "Очень открыт(-а), люблю пробовать новое",
-  "openWithCaution": "В целом открыт(-а), но с осторожностью",
-  "likeFamiliar": "Нравится привычное и проверенное",
-  "closedToExperiments": "Скорее закрыт(-а) к экспериментам"
-},
-"experimentsAttitudeText": "@@@@@@@@@@",
+    "postcoitalFeeling": "Как ты обычно чувствуешь себя после секса?",
+    "placeholder3": "Выберите вариант",
+    "postcoitalFeelingOptions": {
+      "connected": "Расслабленным(-ой) и счастливым(-ой) ",
+      "relaxed": "Ближе к партнёру",
+      "energetic": "Иногда опустошённым(-ой)",
+      "satisfied": "Удовлетворённость и радость",
+      "tired": "По-разному",
+      "neutral": "Часто остаётся лёгкое напряжение",
+      "avoidance": "Сложно расслабиться, хочется отвлечься"
+    },
+    "postcoitalFeelingText": "Показывает, как твое тело и психика усваивают эмоциональную и физическую близость.",
 
+    "communicationOpenness": "Насколько ты открыт(-а) говорить с партнёром о своих желаниях?",
+    "placeholder31": "Выберите вариант",
+    "communicationOpennessOptions": {
+      "openly": "Легко и свободно",
+      "sometimes": "Могу, но не всегда легко",
+      "hardToSay": "Сложно, почти не говорю",
+      "dependsOnPartner": "Зависит от партнёра"
+    },
+    "communicationOpennessText": "Раскрывает уровень доверия в ваших отношениях и готовность к прямому диалогу.",
 
-"feelingWanted": "Насколько тебе важно чувствовать себя желанным(-ой)?  ",
-"placeholder25": "Выберите вариант  ",
-"feelingWantedOptions": {
-  "critical": "Критически важно ",
-  "veryImportant": "Очень важно",
-  "important": "Важно, но не на первом месте",
-  "notSoImportant": "Не очень важно"
-},
-"feelingWantedText": "@@@@@@@@@@",
-  
+    "whatIsMoreImportant": "Что для тебя важнее в сексе?",
+    "placeholder32": "Выберите вариант",
+    "whatIsMoreImportantOptions": {
+      "emotionalConnection": "Эмоциональная близость и соединение",
+      "physicalPleasure": "Физическое удовольствие и яркость ощущений ",
+      "dominance": "Чувство власти / подчинения",
+      "playfulness": "Игра и лёгкость",
+      "intensity": "Глубокая чувственность"
+    },
+    "whatIsMoreImportantText": "Характеризует твои приоритетные ценности и главный источник удовлетворения в сексе.",
 
+    "masturbationFrequency": "Как часто ты мастурбируешь?  ",
+    "placeholder33": "Выберите вариант",
+    "masturbationFrequencyOptions": {
+      "severalTimesAWeek": "Несколько раз в неделю и чаще ",
+      "onceAWeek": "1–2 раза в неделю",
+      "rarely": "Реже раза в неделю",
+      "almostNever": "Очень редко / почти никогда",
+      "preferNotToSay": "Предпочитаю не отвечать"
+    },
+    "masturbationFrequencyText": "Необходимо для объективной оценки общего уровня либидо вне зависимости от наличия партнёра.",
 
-"biggestBlock": "Что для тебя является самым большим блоком в интимной жизни?  ",
-"placeholder26": "Выберите вариант ",
-"biggestBlockOptions": {
-  "anxiety": "Стеснение / зажатость",
-  "stress": "Усталость и стресс",
-  "arousalIssues": "Сложности с возбуждением",
-  "insecurity": "Страх осуждения",
-  "loneliness": "Отсутствие подходящего партнёра  ",
-  "none": "Почти нет блоков"  
-},
-"biggestBlockText": "@@@@@@@@@@",
-
-
-"postcoitalFeeling": "Как ты обычно чувствуешь себя после секса?",
-"placeholder3": "Выберите вариант",
-"postcoitalFeelingOptions": {
-  "connected": "Расслабленным(-ой) и счастливым(-ой) ",
-  "relaxed": "Ближе к партнёру",
-  "energetic": "Иногда опустошённым(-ой)",
-  "satisfied": "Удовлетворённость и радость",
-  "tired": "По-разному",
-  "neutral": "Часто остаётся лёгкое напряжение",
-  "avoidance": "Сложно расслабиться, хочется отвлечься"
-},
-"postcoitalFeelingText": "@@@@@@@@@@",
-
-
-"communicationOpenness": "Насколько ты открыт(-а) говорить с партнёром о своих желаниях?",
-"placeholder31": "Выберите вариант",
-"communicationOpennessOptions": {
-  "openly": "Легко и свободно",
-  "sometimes": "Могу, но не всегда легко",
-  "hardToSay": "Сложно, почти не говорю",
-  "dependsOnPartner": "Зависит от партнёра"
-},
-"communicationOpennessText": "@@@@@@@@@@",
-
-"whatIsMoreImportant": "Что для тебя важнее в сексе?",
-"placeholder32": "Выберите вариант",
-"whatIsMoreImportantOptions": {
-  "emotionalConnection": "Эмоциональная близость и соединение",
-  "physicalPleasure": "Физическое удовольствие и яркость ощущений ",
-  "dominance": "Чувство власти / подчинения",
-  "playfulness": "Игра и лёгкость",
-  "intensity": "Глубокая чувственность"
-},
-"whatIsMoreImportantText": "@@@@@@@@@@",
-
-
-"masturbationFrequency": "Как часто ты мастурбируешь?  ",
-"placeholder33": "Выберите вариант",
-"masturbationFrequencyOptions": {
-  "severalTimesAWeek": "Несколько раз в неделю и чаще ",
-  "onceAWeek": "1–2 раза в неделю",
-  "rarely": "Реже раза в неделю",
-  "almostNever": "Очень редко / почти никогда",
-  "preferNotToSay": "Предпочитаю не отвечать"
-},
-"masturbationFrequencyText": "@@@@@@@@@@",
-
-"biggestNeed": "Чего тебе сейчас больше всего не хватает в сексуальной сфере?",
-"placeholder34": "Выберите вариант",
-"biggestNeedOptions": {
-  "emotionalConnection": "Больше желания",
-  "moreVariety": "Больше уверенности в себе",
-  "betterTechnique": "Больше разнообразия",
-  "moreInitiative": "Больше эмоциональной близости",
-  "lessAnxiety": "Больше свободы и раскрепощённости",
-  "noPartner": "Всё устраивает"
-
-},
-"biggestNeedText": "@@@@@@@@@@"
-
-
+    "biggestNeed": "Чего тебе сейчас больше всего не хватает в сексуальной сфере?",
+    "placeholder34": "Выберите вариант",
+    "biggestNeedOptions": {
+      "emotionalConnection": "Больше желания",
+      "moreVariety": "Больше уверенности в себе",
+      "betterTechnique": "Больше разнообразия",
+      "moreInitiative": "Больше эмоциональной близости",
+      "lessAnxiety": "Больше свободы и раскрепощённости",
+      "noPartner": "Всё устраивает"
+    },
+    "biggestNeedText": "Направлен на точечный подбор практических решений для повышения качества твоей жизни."
+  },
+  "suspense": {
+    "loading": "Загрузка результата..."
   },
 
   "footer": {

@@ -215,12 +215,12 @@
   },
 
 
-  "LonersFullResultContent": {
-    "title": "Result of your personal analysis:",
-    "text1title": "@@@@@@@@@@",
-    "text1": "@@@@@@@@@@",
-    "text2title": "@@@@@@@@@@",
-    "text2": "@@@@@@@@@@"
+"LonersFullResultContent": {
+    "title": "Result of your personal analysis",
+    "text1title": "This will help you understand yourself better",
+    "text1": "The analysis will reveal your hidden beliefs, blocks, and the true causes of difficulties in your sexuality.",
+    "text2title": "Complete the additional questionnaire and answer important questions",
+    "text2": "The more sincere your answers, the more accurate the result will be."
   },
 
 "LonersFullResultForm":{
@@ -235,7 +235,7 @@
       "lessThanOnceAWeek": "Very rarely / almost never",
       "dependsOnMood": "Strongly depends on mood and circumstances"
     },
-    "sexualDesireFrequencyText": "1@@@@@@@@@@",
+    "sexualDesireFrequencyText": "This will help determine your overall libido level, regardless of whether you have a partner.",
 
 
     "sexualDesireTriggers":"What most often triggers your desire?",
@@ -248,7 +248,7 @@
       "spontaneity": "Spontaneously, without special reasons",
       "dependsOnMood": "Depends on mood"
     },
-    "sexualDesireTriggersText": "2@@@@@@@@@@",
+    "sexualDesireTriggersText": "This helps identify what stimulates you most and how to tune into your desires.",
 
 
     "preludeImportance": "How important is foreplay to you?",
@@ -259,7 +259,7 @@
       "middle":"Medium, I can manage with short foreplay"  ,
       "notSoImportant": "Not particularly important"
     },
-    "preludeImportanceText": "3@@@@@@@@@@",
+    "preludeImportanceText": "This will help determine your seduction style and how much you value the sensual component in sex.",
 
 
 
@@ -272,7 +272,7 @@
   "dependsOnSituation": "Depends on situation",
   "hardToInitiate": "I find it difficult to take initiative"
 },
-"initiativText": "4@@@@@@@@@@",
+"initiativText": "This affects the analysis of your interaction model with your partner and the selection of recommendations for bringing you closer.",
 
 
 "experimentsAttitude": "How do you feel about experiments in sex?",
@@ -283,7 +283,7 @@
   "likeFamiliar": "I like the familiar and proven",
   "closedToExperiments": "Rather closed to experiments"
 },
-"experimentsAttitudeText": "@@@@@@@@@@",
+"experimentsAttitudeText": "This is needed to determine your level of flexibility and comfort zones in the intimate sphere",
 
 
 "feelingWanted": "How important is it for you to feel desired?",
@@ -294,7 +294,7 @@
   "important": "Important, but not the main thing",
   "notSoImportant": "Not very important"
 },
-"feelingWantedText": "@@@@@@@@@@",
+"feelingWantedText": "This determines your sensitivity to signs of attention and external confirmation of love.",
   
 
 
@@ -308,7 +308,7 @@
   "loneliness": "Lack of a suitable partner  ",
   "none": "Almost no blocks"  
 },
-"biggestBlockText": "@@@@@@@@@@",
+"biggestBlockText": "It forms a personalized plan for gently overcoming fears and removing stiffness.",
 
 
 "postcoitalFeeling": "How do you usually feel after sex?",
@@ -322,7 +322,7 @@
   "neutral": "Often a slight tension remains",
   "avoidance": "Hard to relax, want to get distracted"
 },
-"postcoitalFeelingText": "@@@@@@@@@@",
+"postcoitalFeelingText": "This shows how your body and psyche process emotional and physical intimacy.",
 
 
 "communicationOpenness": "How open are you to talking with your partner about your desires?",
@@ -333,7 +333,7 @@
   "hardToSay": "Difficult, I hardly speak",
   "dependsOnPartner": "Depends on the partner"
 },
-"communicationOpennessText": "@@@@@@@@@@",
+"communicationOpennessText": "It reveals the level of trust in your relationship and readiness for open dialogue.",
 
 "whatIsMoreImportant": "What is more important to you in sex?",
 "placeholder32": "Choose option",
@@ -344,7 +344,7 @@
   "playfulness": "Playfulness and ease",
   "intensity": "Deep sensuality"
 },
-"whatIsMoreImportantText": "@@@@@@@@@@",
+"whatIsMoreImportantText": "It characterizes your priority values and the main source of satisfaction in sex.",
 
 
 "masturbationFrequency": "How often do you masturbate?  ",
@@ -356,7 +356,7 @@
   "almostNever": "Very rarely / almost never",
   "preferNotToSay": "Prefer not to say"
 },
-"masturbationFrequencyText": "@@@@@@@@@@",
+"masturbationFrequencyText": "Used to assess overall sexual tension and how you satisfy your needs outside of a relationship.",
 
 "biggestNeed": "What do you need most in your sex life right now?",
 "placeholder34": "Choose option",
@@ -369,8 +369,14 @@
   "noPartner": "Everything is fine"
 
 },
-"biggestNeedText": "@@@@@@@@@@"
+"biggestNeedText": "This is used to provide targeted, practical solutions to improve your quality of life."
   },
+
+
+  "suspense":{
+"loading":"Loading result..."
+  },
+
   "footer": {
     "text": "made with"
   }

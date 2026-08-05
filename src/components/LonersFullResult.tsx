@@ -26,7 +26,7 @@ const resultText =
     report.text || report.output || report.analysis || report.response || '';
 
   const handleProClick = () => {
-    router.push(`/${lang}/lonersFullResult`);
+    router.push(`/${lang}/lonersPaidForm`);
   };
 
 

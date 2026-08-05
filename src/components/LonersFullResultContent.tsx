@@ -1,22 +1,15 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import LonersFullResultForm from './LonersFullResultForm';
-import { LonersAnalysisResult } from '@/app/types/lonersTypes';
+import { useState } from "react";
+import LonersFullResultForm from "./LonersFullResultForm";
+import { LonersAnalysisResult } from "@/app/types/lonersTypes";
 
-
-import { Dictionary } from '@/i18n-config';
-import LonersFullResult from './LonersFullResult';
-
-
-
+import { Dictionary } from "@/i18n-config";
 
 export default function LonersFullResultContent({
   dict,
-  lang,
 }: {
   dict: Dictionary;
-  lang: string;
 }) {
   const [report, setReport] = useState<LonersAnalysisResult | null>(null);
 
@@ -43,9 +36,6 @@ export default function LonersFullResultContent({
           </p>
         </div>
         <LonersFullResultForm onResult={setReport} />
-{report && (
-    <LonersFullResult report={report} lang={lang} dict={dict} />
-)}
       </div>
     </section>
   );
