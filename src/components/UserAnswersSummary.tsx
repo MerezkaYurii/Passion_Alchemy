@@ -1,28 +1,65 @@
 "use client";
 
 import { useLonersStore } from "@/app/store/lonersSlice";
-import { useDictionary } from "@/app/hooks/useDictionary";
+import { Dictionary } from "@/i18n-config";
 
-export default function UserAnswersSummary() {
+interface UserAnswersSummaryProps {
+  dict: Dictionary;
+}
+
+export default function UserAnswersSummary({ dict }: UserAnswersSummaryProps) {
   const shortFormData = useLonersStore((state) => state.shortFormData);
   const fullFormData = useLonersStore((state) => state.fullFormData);
-  const dict = useDictionary();
+
   if (!shortFormData && !fullFormData) {
     return null;
   }
+
+  // Карты имен объектов с опциями в JSON
+  const OPTION_MAP: Record<string, string> = {
+    gender: "genderOptions",
+    orientation: "orientationOptions",
+    relationshipStatus: "statusOptions",
+    mainGoal: "goalOptions",
+    preferredPace: "paceOptions",
+    emotionalConnection: "emotionalConnectionOptions",
+  };
+
+  // Функция приведения "increase_desire" -> "increaseDesire"
+  const toCamelCase = (str: string) =>
+    str.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+
+  const getValueText = (fieldKey: string, value: string): string => {
+    if (!value) return "";
+
+    const formattedValue = toCamelCase(value);
+    const optionsKey = OPTION_MAP[fieldKey] || `${fieldKey}Options`;
+
+    const dictRecord = dict as unknown as Record<
+      string,
+      Record<string, Record<string, string>>
+    >;
+
+    // Ищем перевод в dict.LonersForm[optionsKey][formattedValue]
+    const translated =
+      dictRecord.LonersForm?.[optionsKey]?.[formattedValue] ||
+      dictRecord.LonersFullResultForm?.[optionsKey]?.[formattedValue];
+
+    return translated || value;
+  };
 
   return (
     <div className="space-y-6 text-white text-sm sm:text-base">
       {/* Первая анкета */}
       {shortFormData && (
         <div className="bg-gray-900/60 p-4 rounded-xl border border-gray-700/50">
-          <h3 className="text-md font-semibold text-[#4f83fd] mb-3">
-            {dict.Loners.title}
+          <h3 className="text-xl  font-light underline italic text-white mb-3">
+            {dict.LonersForm.title1}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div>
               <span className="text-gray-400">{dict.LonersForm.gender}:</span>{" "}
-              {shortFormData.gender}
+              {getValueText("gender", shortFormData.gender)}
             </div>
             <div>
               <span className="text-gray-400">{dict.LonersForm.age}:</span>{" "}
@@ -32,35 +69,41 @@ export default function UserAnswersSummary() {
               <span className="text-gray-400">
                 {dict.LonersForm.orientation}:
               </span>{" "}
-              {shortFormData.orientation}
+              {getValueText("orientation", shortFormData.orientation)}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersForm.relationshipStatus}:
               </span>{" "}
-              {shortFormData.relationshipStatus}
+              {getValueText(
+                "relationshipStatus",
+                shortFormData.relationshipStatus,
+              )}
             </div>
             <div>
               <span className="text-gray-400">{dict.LonersForm.mainGoal}:</span>{" "}
-              {shortFormData.mainGoal}
+              {getValueText("mainGoal", shortFormData.mainGoal)}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersForm.preferredPace}:
               </span>{" "}
-              {shortFormData.preferredPace}
+              {getValueText("preferredPace", shortFormData.preferredPace)}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersForm.emotionalConnection}:
               </span>{" "}
-              {shortFormData.emotionalConnection}
+              {getValueText(
+                "emotionalConnection",
+                shortFormData.emotionalConnection,
+              )}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersForm.hasIssues}:
               </span>{" "}
-              {shortFormData.hasIssues}
+              {getValueText("hasIssues", shortFormData.hasIssues)}
             </div>
           </div>
         </div>
@@ -69,78 +112,108 @@ export default function UserAnswersSummary() {
       {/* Вторая анкета */}
       {fullFormData && (
         <div className="bg-gray-900/60 p-4 rounded-xl border border-gray-700/50">
+          <h3 className="text-xl  font-light underline italic text-white mb-3">
+            {dict.LonersForm.title2}
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div>
               <span className="text-gray-400">
                 {dict.LonersFullResultForm.sexualDesireFrequency}:
               </span>{" "}
-              {fullFormData.sexualDesireFrequency}
+              {getValueText(
+                "sexualDesireFrequency",
+                fullFormData.sexualDesireFrequency,
+              )}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersFullResultForm.sexualDesireTriggers}:
               </span>{" "}
-              {fullFormData.sexualDesireTriggers}
+              {getValueText(
+                "sexualDesireTriggers",
+                fullFormData.sexualDesireTriggers,
+              )}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersFullResultForm.preludeImportance}:
               </span>{" "}
-              {fullFormData.preludeImportance}
+              {getValueText(
+                "preludeImportance",
+                fullFormData.preludeImportance,
+              )}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersFullResultForm.initiativePartner}:
               </span>{" "}
-              {fullFormData.initiativePartner}
+              {getValueText(
+                "initiativePartner",
+                fullFormData.initiativePartner,
+              )}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersFullResultForm.experimentsAttitude}:
               </span>{" "}
-              {fullFormData.experimentsAttitude}
+              {getValueText(
+                "experimentsAttitude",
+                fullFormData.experimentsAttitude,
+              )}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersFullResultForm.feelingWanted}:
               </span>{" "}
-              {fullFormData.feelingWanted}
+              {getValueText("feelingWanted", fullFormData.feelingWanted)}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersFullResultForm.biggestBlock}:
               </span>{" "}
-              {fullFormData.biggestBlock}
+              {getValueText("biggestBlock", fullFormData.biggestBlock)}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersFullResultForm.postcoitalFeeling}:
               </span>{" "}
-              {fullFormData.postcoitalFeeling}
+              {getValueText(
+                "postcoitalFeeling",
+                fullFormData.postcoitalFeeling,
+              )}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersFullResultForm.communicationOpenness}:
               </span>{" "}
-              {fullFormData.communicationOpenness}
+              {getValueText(
+                "communicationOpenness",
+                fullFormData.communicationOpenness,
+              )}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersFullResultForm.whatIsMoreImportant}:
               </span>{" "}
-              {fullFormData.whatIsMoreImportant}
+              {getValueText(
+                "whatIsMoreImportant",
+                fullFormData.whatIsMoreImportant,
+              )}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersFullResultForm.masturbationFrequency}:
               </span>{" "}
-              {fullFormData.masturbationFrequency}
+              {getValueText(
+                "masturbationFrequency",
+                fullFormData.masturbationFrequency,
+              )}
             </div>
             <div>
               <span className="text-gray-400">
                 {dict.LonersFullResultForm.biggestNeed}:
               </span>{" "}
-              {fullFormData.biggestNeed}
+              {getValueText("biggestNeed", fullFormData.biggestNeed)}
             </div>
           </div>
         </div>

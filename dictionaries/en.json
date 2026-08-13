@@ -18,6 +18,14 @@
     ],
     "button": "Continue"
   },
+  "GlobalLoader": {
+    "text": "AI is generating a response..."
+  },
+  "HomePageSlider": {
+    "title": "Transform Your Inner World and Discover New Harmony in Love",
+    "desc1": "Our AI will analyze your unique traits and help reveal the most harmonious, confident, and sensual version of you.",
+    "desc2": "Your inner state, style of love, and pleasure from intimacy — everything is tailored individually for you."
+  },
   "HomePageButtons": {
     "button1": {
       "title": "For myself",
@@ -30,15 +38,6 @@
       "buttonText": "Take the test"
     }
   },
-  "GlobalLoader": {
-    "text": "AI is generating a response..."
-  },
-  "HomePageSlider": {
-    "title": "Transform Your Inner World and Discover New Harmony in Love",
-    "desc1": "Our AI will analyze your unique traits and help reveal the most harmonious, confident, and sensual version of you.",
-    "desc2": "Your inner state, style of love, and pleasure from intimacy — everything is tailored individually for you."
-  },
-
   "Loners": {
     "title": "What does your sexuality hide?",
     "text1title": "✔️  Discover your strengths and hidden desires.",
@@ -46,8 +45,9 @@
     "text2title": "✔️  The result is for informational purposes only.",
     "text2": "   ❗  The result will be based on your answers and does not replace a professional consultation. "
   },
-
   "LonersForm": {
+    "title1": "Your Questionnaire №1",
+    "title2": "Your Questionnaire №2",
     "gender": "Gender",
     "placeholder1": "Gender",
     "genderOptions": {
@@ -67,7 +67,6 @@
       "asexual": "Asexual"
     },
     "orientationText": "What are your preferences in partners?",
-
     "relationshipStatus": "Current status",
     "placeholder4": "Current status",
     "statusOptions": {
@@ -77,7 +76,6 @@
       "searching": "Searching"
     },
     "relationshipStatusText": "How are things going in your relationship?",
-
     "mainGoal": "Main Goal",
     "placeholder5": "Main Goal",
     "goalOptions": {
@@ -87,7 +85,6 @@
       "explorePreferences": "→ Explore preferences"
     },
     "mainGoalText": "What is the main goal of this test for you?",
-
     "preferredPace": "Preferred pace",
     "placeholderPace": "Preferred pace",
     "paceOptions": {
@@ -97,7 +94,6 @@
       "dependsOnMood": "Depends on mood"
     },
     "paceText": "Gentle or passionate?",
-
     "emotionalConnection": "Emotional connection",
     "placeholderEmotionalConnection": "Emotional connection",
     "emotionalConnectionOptions": {
@@ -106,7 +102,6 @@
       "notSoImportant": "Not so important"
     },
     "emotionalConnectionText": "How important is emotional connection for you during intimacy?",
-
     "hasIssues": "Do you have problems with decreased desire or discomfort?",
     "placeholderHasIssues": "Problems with desire or discomfort",
     "hasIssuesOptions": {
@@ -115,34 +110,33 @@
       "no": "No"
     },
     "hasIssuesText": "Do you have current issues with desire?",
-
     "submit": "Analyze",
     "submitLoading": "Analyzing...",
     "full_analysis": "Full analysis: ",
     "full_analysis_text": "",
     "full_analysis_button": "Order Full Analysis"
   },
-
   "CoupleForm": {
     "title": "Step 1 — Information about the partners",
+    "subtitle": "Information about the partners",
     "partner1_title": "Partner 1 (you)",
     "partner2_title": "Partner 2",
+    "pairSubTitle": "General questions for the couple:",
 
-    "gender": "Gender:",
+    "gender": "Gender",
     "placeholder1": "Select gender",
     "genderOptions": {
       "male": "Male",
       "female": "Female"
     },
-
-    "age": "Age:",
+    "age": "Age",
     "placeholder2": "Enter your age",
     "ageText": "Enter your age",
-
     "title2": "Step 2 — Short survey",
     "partner1_answers": "Answers of Partner 1:",
     "partner2_answers": "Answers of Partner 2:",
-    "orientation": "Sexual orientation:",
+
+    "orientation": "Sexual orientation",
     "placeholder3": "Select option",
     "orientationOptions": {
       "heterosexual": "Heterosexual",
@@ -158,7 +152,6 @@
       "varied": "Varied",
       "dependsOnMood": "Depends on mood"
     },
-
     "emotionalConnection": "How important is emotional connection during intimacy?",
     "placeholderEmotionalConnection": "Select option",
     "emotionalConnectionOptions": {
@@ -166,7 +159,6 @@
       "important": "Important",
       "notSoImportant": "Not so important"
     },
-
     "sexualDesire": "What is your sexual desire level now?",
     "placeholderSexualDesire": "Select level",
     "sexualDesireOptions": {
@@ -175,11 +167,11 @@
       "low": "Low",
       "unstable": "Unstable"
     },
-
     "title3": "Step 3 — General question for the couple",
-    "question3": "What do you most want to improve in your sex life? (choose one option)",
+    "title3_desc": "General question for the couple",
+    "intimateGoal": "What do you most want to improve in your sex life?",
     "placeholder4": "Choose option",
-    "options3": {
+    "intimateGoalOptions": {
       "harmony": "More passion and intensity",
       "variety": "More tenderness and closeness",
       "pleasure": "Better understand each other's desires",
@@ -187,46 +179,49 @@
       "confidence": "Add novelty and experiments",
       "routine": "Overcome routine"
     },
-
     "submit": "Get result",
     "submitLoading": "Getting result...",
-    "full_analysis": "Full analysis: ",
-    "full_analysis_text": "",
-    "full_analysis_button": "Order Full Analysis"
+    "full_analysis": "Full analysis of your sexuality - only $27 ",
+    "full_analysis_text": "Unlock the potential of your relationship! Take a short questionnaire to discover your couple's sexual constitution, find points of connection, and release inner blocks. Your personalized analysis for two will be ready in just 2-3 minutes.",
+    "full_analysis_button": "Get full analysis for $27"
   },
-
+  "CoupleResult": {
+    "title": "Couple Analysis Result:",
+    "full_analysis": "Full analysis of your sexuality - only $27 ",
+    "full_analysis_text": "Unlock the potential of your relationship! Take a short questionnaire to discover your couple's sexual constitution, find points of connection, and release inner blocks. Your personalized analysis for two will be ready in just 2-3 minutes.",
+    "full_analysis_button": "Get full analysis for $27"
+  },
+  "LonersResult": {
+    "title": "Your personal analysis:",
+    "full_analysis": "Full analysis of your sexuality - only $17 ",
+    "full_analysis_text": "Discover your sexual script, constitution, and hidden blocks. Answer a few questions in the additional form and get a full analysis in just 2-3 minutes!",
+    "full_analysis_button": "Get full analysis for $17"
+  },
   "resultPage": {
     "title": "Your personal analysis",
     "button": "Download PDF"
   },
-
-  "CoupleResult": {
-    "title": "Couple Analysis Result:",
-    "full_analysis": "Full Analysis: ",
-    "full_analysis_text": "@@@@@@@@@@",
-    "full_analysis_button": "Order Full Analysis"
+  "resultPageCoupleFull": {
+    "title": "Compatibility Analysis",
+    "button": "Download PDF"
   },
-
-  "LonersResult": {
-    "title": "Your personal analysis:",
-    "full_analysis": "Full Analysis: ",
-    "full_analysis_text": "@@@@@@@@@@",
-    "full_analysis_button": "Order Full Analysis"
+  "LonersFullResultContent": {
+    "title": "Personal Analysis of Your Sexuality",
+    "text1title": "Why complete the additional questionnaire?",
+    "text1": "To generate an accurate and deep report, AI needs to clarify a few important details about your preferences and feelings.",
+    "text2title": "Answer the questions below",
+    "text2": "Be as sincere as possible — this will help build the most accurate and useful recommendations for you."
   },
-
-
-"LonersFullResultContent": {
-    "title": "Result of your personal analysis",
-    "text1title": "This will help you understand yourself better",
-    "text1": "The analysis will reveal your hidden beliefs, blocks, and the true causes of difficulties in your sexuality.",
-    "text2title": "Complete the additional questionnaire and answer important questions",
-    "text2": "The more sincere your answers, the more accurate the result will be."
+  "CoupleFullResultContent": {
+    "title": "Your sexual potential as a couple",
+    "text1title": "Why complete an additional questionnaire?",
+    "text1": "To form an accurate and deep analysis, AI needs to clarify a few important details about your relationship, preferences, and shared experiences.",
+    "text2title": "Answer the questions below",
+    "text2": "Answer as sincerely as possible — this will help build the most accurate and useful recommendations for your couple."
   },
-
-"LonersFullResultForm":{
+  "LonersFullResultForm": {
     "title": "Additional questionnaire",
-
- "sexualDesireFrequency": "How often do you feel sexual desire?",
+    "sexualDesireFrequency": "How often do you feel sexual desire?",
     "placeholder20": "Choose option",
     "sexualDesireFrequencyOptions": {
       "almostEveryDay": "Almost every day",
@@ -236,9 +231,7 @@
       "dependsOnMood": "Strongly depends on mood and circumstances"
     },
     "sexualDesireFrequencyText": "This will help determine your overall libido level, regardless of whether you have a partner.",
-
-
-    "sexualDesireTriggers":"What most often triggers your desire?",
+    "sexualDesireTriggers": "What most often triggers your desire?",
     "placeholder21": "Choose option",
     "sexualDesireTriggersOptions": {
       "emotionalCloseness": "Emotional closeness and conversations",
@@ -249,134 +242,238 @@
       "dependsOnMood": "Depends on mood"
     },
     "sexualDesireTriggersText": "This helps identify what stimulates you most and how to tune into your desires.",
-
-
     "preludeImportance": "How important is foreplay to you?",
     "placeholder22": "Choose option",
     "preludeImportanceOptions": {
       "veryImportant": "Very important, almost impossible without it",
       "important": "Important, I enjoy long foreplay",
-      "middle":"Medium, I can manage with short foreplay"  ,
+      "middle": "Medium, I can manage with short foreplay",
       "notSoImportant": "Not particularly important"
     },
     "preludeImportanceText": "This will help determine your seduction style and how much you value the sensual component in sex.",
-
-
-
-  "initiativePartner": "Who usually takes the initiative?",
-  "placeholder23": "Choose option",
-"initiativOptions": {
-  "usualyMe": "Usually me",
-  "usualyPartner": "Usually partner",
-  "aboutEqual": "About equal",
-  "dependsOnSituation": "Depends on situation",
-  "hardToInitiate": "I find it difficult to take initiative"
-},
-"initiativText": "This affects the analysis of your interaction model with your partner and the selection of recommendations for bringing you closer.",
-
-
-"experimentsAttitude": "How do you feel about experiments in sex?",
-"placeholder24": "Choose option",
-"experimentsAttitudeOptions": {
-  "veryOpen": "Very open, I love trying new things",
-  "openWithCaution": "Generally open, but with caution",
-  "likeFamiliar": "I like the familiar and proven",
-  "closedToExperiments": "Rather closed to experiments"
-},
-"experimentsAttitudeText": "This is needed to determine your level of flexibility and comfort zones in the intimate sphere",
-
-
-"feelingWanted": "How important is it for you to feel desired?",
-"placeholder25": "Choose option",
-"feelingWantedOptions": {
-  "critical": "Critically important",
-  "veryImportant": "Very important",
-  "important": "Important, but not the main thing",
-  "notSoImportant": "Not very important"
-},
-"feelingWantedText": "This determines your sensitivity to signs of attention and external confirmation of love.",
-  
-
-
-"biggestBlock": "What is the biggest block for you in intimate life?  ",
-"placeholder26": "Choose option",
-"biggestBlockOptions": {
-  "anxiety": "Shyness / stiffness",
-  "stress": "Fatigue and stress",
-  "arousalIssues": "Difficulty with arousal",
-  "insecurity": "Fear of judgment",
-  "loneliness": "Lack of a suitable partner  ",
-  "none": "Almost no blocks"  
-},
-"biggestBlockText": "It forms a personalized plan for gently overcoming fears and removing stiffness.",
-
-
-"postcoitalFeeling": "How do you usually feel after sex?",
-"placeholder3": "Choose option",
-"postcoitalFeelingOptions": {
-  "connected": "Relaxed and happy",
-  "relaxed": "Closer to my partner",
-  "energetic": "Sometimes drained",
-  "satisfied": "Satisfied and joyful",
-  "tired": "Depends",
-  "neutral": "Often a slight tension remains",
-  "avoidance": "Hard to relax, want to get distracted"
-},
-"postcoitalFeelingText": "This shows how your body and psyche process emotional and physical intimacy.",
-
-
-"communicationOpenness": "How open are you to talking with your partner about your desires?",
-"placeholder31": "Choose option",
-"communicationOpennessOptions": {
-  "openly": "Easily and freely",
-  "sometimes": "I can, but not always easily",
-  "hardToSay": "Difficult, I hardly speak",
-  "dependsOnPartner": "Depends on the partner"
-},
-"communicationOpennessText": "It reveals the level of trust in your relationship and readiness for open dialogue.",
-
-"whatIsMoreImportant": "What is more important to you in sex?",
-"placeholder32": "Choose option",
-"whatIsMoreImportantOptions": {
-  "emotionalConnection": "Emotional intimacy and connection",
-  "physicalPleasure": "Physical pleasure and vivid sensations",
-  "dominance": "Sense of power / submission",
-  "playfulness": "Playfulness and ease",
-  "intensity": "Deep sensuality"
-},
-"whatIsMoreImportantText": "It characterizes your priority values and the main source of satisfaction in sex.",
-
-
-"masturbationFrequency": "How often do you masturbate?  ",
-"placeholder33": "Choose option",
-"masturbationFrequencyOptions": {
-  "severalTimesAWeek": "Several times a week or more ",
-  "onceAWeek": "1–2 times a week",
-  "rarely": "Less than once a week",
-  "almostNever": "Very rarely / almost never",
-  "preferNotToSay": "Prefer not to say"
-},
-"masturbationFrequencyText": "Used to assess overall sexual tension and how you satisfy your needs outside of a relationship.",
-
-"biggestNeed": "What do you need most in your sex life right now?",
-"placeholder34": "Choose option",
-"biggestNeedOptions": {
-  "emotionalConnection": "More desire",
-  "moreVariety": "More self-confidence",
-  "betterTechnique": "More variety",
-  "moreInitiative": "More emotional intimacy",
-  "lessAnxiety": "More freedom and openness",
-  "noPartner": "Everything is fine"
-
-},
-"biggestNeedText": "This is used to provide targeted, practical solutions to improve your quality of life."
+    "initiativePartner": "Who usually takes the initiative?",
+    "placeholder23": "Choose option",
+    "initiativOptions": {
+      "usualyMe": "Usually me",
+      "usualyPartner": "Usually partner",
+      "aboutEqual": "About equal",
+      "dependsOnSituation": "Depends on situation",
+      "hardToInitiate": "I find it difficult to take initiative"
+    },
+    "initiativText": "This affects the analysis of your interaction model with your partner and the selection of recommendations for bringing you closer.",
+    "experimentsAttitude": "How do you feel about experiments in sex?",
+    "placeholder24": "Choose option",
+    "experimentsAttitudeOptions": {
+      "veryOpen": "Very open, I love trying new things",
+      "openWithCaution": "Generally open, but with caution",
+      "likeFamiliar": "I like the familiar and proven",
+      "closedToExperiments": "Rather closed to experiments"
+    },
+    "experimentsAttitudeText": "This is needed to determine your level of flexibility and comfort zones in the intimate sphere",
+    "feelingWanted": "How important is it for you to feel desired?",
+    "placeholder25": "Choose option",
+    "feelingWantedOptions": {
+      "critical": "Critically important",
+      "veryImportant": "Very important",
+      "important": "Important, but not the main thing",
+      "notSoImportant": "Not very important"
+    },
+    "feelingWantedText": "This determines your sensitivity to signs of attention and external confirmation of love.",
+    "biggestBlock": "What is the biggest block for you in intimate life?  ",
+    "placeholder26": "Choose option",
+    "biggestBlockOptions": {
+      "anxiety": "Shyness / stiffness",
+      "stress": "Fatigue and stress",
+      "arousalIssues": "Difficulty with arousal",
+      "insecurity": "Fear of judgment",
+      "loneliness": "Lack of a suitable partner  ",
+      "none": "Almost no blocks"
+    },
+    "biggestBlockText": "It forms a personalized plan for gently overcoming fears and removing stiffness.",
+    "postcoitalFeeling": "How do you usually feel after sex?",
+    "placeholder3": "Choose option",
+    "postcoitalFeelingOptions": {
+      "connected": "Relaxed and happy",
+      "relaxed": "Closer to my partner",
+      "energetic": "Sometimes drained",
+      "satisfied": "Satisfied and joyful",
+      "tired": "Depends",
+      "neutral": "Often a slight tension remains",
+      "avoidance": "Hard to relax, want to get distracted"
+    },
+    "postcoitalFeelingText": "This shows how your body and psyche process emotional and physical intimacy.",
+    "communicationOpenness": "How open are you to talking with your partner about your desires?",
+    "placeholder31": "Choose option",
+    "communicationOpennessOptions": {
+      "openly": "Easily and freely",
+      "sometimes": "I can, but not always easily",
+      "hardToSay": "Difficult, I hardly speak",
+      "dependsOnPartner": "Depends on the partner"
+    },
+    "communicationOpennessText": "It reveals the level of trust in your relationship and readiness for open dialogue.",
+    "whatIsMoreImportant": "What is more important to you in sex?",
+    "placeholder32": "Choose option",
+    "whatIsMoreImportantOptions": {
+      "emotionalConnection": "Emotional intimacy and connection",
+      "physicalPleasure": "Physical pleasure and vivid sensations",
+      "dominance": "Sense of power / submission",
+      "playfulness": "Playfulness and ease",
+      "intensity": "Deep sensuality"
+    },
+    "whatIsMoreImportantText": "It characterizes your priority values and the main source of satisfaction in sex.",
+    "masturbationFrequency": "How often do you masturbate?  ",
+    "placeholder33": "Choose option",
+    "masturbationFrequencyOptions": {
+      "severalTimesAWeek": "Several times a week or more ",
+      "onceAWeek": "1–2 times a week",
+      "rarely": "Less than once a week",
+      "almostNever": "Very rarely / almost never",
+      "preferNotToSay": "Prefer not to say"
+    },
+    "masturbationFrequencyText": "Used to assess overall sexual tension and how you satisfy your needs outside of a relationship.",
+    "biggestNeed": "What do you need most in your sex life right now?",
+    "placeholder34": "Choose option",
+    "biggestNeedOptions": {
+      "emotionalConnection": "More desire",
+      "moreVariety": "More self-confidence",
+      "betterTechnique": "More variety",
+      "moreInitiative": "More emotional intimacy",
+      "lessAnxiety": "More freedom and openness",
+      "noPartner": "Everything is fine"
+    },
+    "biggestNeedText": "This is used to provide targeted, practical solutions to improve your quality of life."
+  },
+  "suspense": {
+    "loading": "Loading result..."
   },
 
+  "pairQuestionnaire": {
+    "fullTitle": "Detailed pair questionnaire",
+    "partner1Title": "Block 1. Partner 1 Responses:",
+    "partner1SubTitle": "Partner 1 Responses:",
+    "partner2Title": "Block 2. Partner 2 Responses:",
+    "partner2SubTitle": "Partner 2 Responses:",
+    "pairTitle": "Block 3. General Questions for the Couple:",
+    "pairSubTitle": "General Questions for the Couple:",
 
-  "suspense":{
-"loading":"Loading result..."
+    "desireFrequency": "How often do you feel sexual desire?",
+    "placeholder1": "Choose option",
+    "desireFrequencyOptions": {
+      "almostEveryday": "Almost every day",
+      "severalTimesWeek": "A few times a week",
+      "onceWeekOrLess": "Once a week or less",
+      "veryRarely": "Very rarely",
+      "dependsOnMood": "Strongly depends on mood"
+    },
+
+    "desireTriggers": "What most often triggers your desire?",
+    "placeholder2": "Choose option",
+    "desireTriggersOptions": {
+      "emotionalCloseness": "Emotional closeness",
+      "physicalTouch": "Physical touch",
+      "atmosphere": "Atmosphere and anticipation",
+      "visualImagination": "Visuals / fantasies",
+      "spontaneity": "Spontaneously"
+    },
+
+    "foreplayImportance": "How important is foreplay to you?",
+    "placeholder3": "Choose option",
+    "foreplayImportanceOptions": {
+      "veryImportant": "Very important",
+      "important": "Important",
+      "medium": "Moderate",
+      "notParticularlyImportant": "Not particularly important"
+    },
+
+    "initiative": "Who initiates sex more often in your relationship?",
+    "placeholder4": "Choose option",
+    "initiativeOptions": {
+      "usuallyMe": "Usually me",
+      "usuallyPartner": "Usually my partner",
+      "equally": "About equally",
+      "rarelyAnyone": "Rarely either of us"
+    },
+
+    "experimentsOpenness": "How do you feel about experimenting in sex?",
+    "placeholder5": "Choose option",
+    "experimentsOpennessOptions": {
+      "veryOpen": "Very open",
+      "generallyOpen": "Generally open",
+      "preferFamiliar": "Prefer what's familiar",
+      "ratherClosed": "Rather closed"
+    },
+
+    "feelingDesiredImportance": "How important is it for you to feel desired by your partner?",
+    "placeholder6": "Choose option",
+    "feelingDesiredImportanceOptions": {
+      "criticallyImportant": "Critically important",
+      "veryImportant": "Very important",
+      "important": "Important",
+      "notParticularlyImportant": "Not particularly important"
+    },
+
+    "relaxationBarriers": "What most often prevents you from fully relaxing during sex?",
+    "placeholder7": "Choose option",
+    "relaxationBarriersOptions": {
+      "fatigueStress": "Fatigue / stress",
+      "shyness": "Shyness",
+      "thoughtsControl": "Overthinking and control",
+      "lackOfTime": "Lack of time",
+      "almostNothing": "Almost nothing prevents me"
+    },
+
+    "desireCommunicationEase": "How easy is it for you to talk to your partner about your desires?",
+    "placeholder8": "Choose option",
+    "desireCommunicationEaseOptions": {
+      "easyAndFree": "Easy and free",
+      "canButNotAlwaysEasy": "I can, but not always easily",
+      "difficult": "Difficult",
+      "almostNeverTalk": "I almost never talk about it"
+    },
+
+    "currentSexFrequency": "How often do you currently have sex?",
+    "placeholder9": "Choose option",
+    "currentSexFrequencyOptions": {
+      "severalTimesWeek": "A few times a week",
+      "onceWeek": "Once a week",
+      "oneTwoTimesMonth": "1–2 times a month",
+      "lessThanOnceMonth": "Less than once a month",
+      "almostNever": "Almost never"
+    },
+
+    "mainIssues": "What currently creates the most tension in your intimate life?",
+    "placeholder10": "Choose option",
+    "mainIssuesOptions": {
+      "desireFrequencyDifference": "Different levels of desire frequency",
+      "lackOfVariety": "Lack of variety",
+      "lackOfEmotionalCloseness": "Lack of emotional closeness",
+      "fatigueAndRoutine": "Fatigue and daily routine",
+      "arousalDifficulties": "Arousal difficulties for one partner",
+      "almostNothing": "Almost nothing creates tension"
+    },
+
+    "desiredAdditions": "What would you both like to add to your relationship right now?",
+    "placeholder11": "Choose option",
+    "desiredAdditionsOptions": {
+      "morePassion": "More passion",
+      "moreTenderness": "More tenderness and closeness",
+      "morePlayfulness": "More playfulness and lightness",
+      "moreDepth": "More depth and presence",
+      "moreFreedom": "More freedom and open-mindedness"
+    },
+
+    "overallSatisfaction": "How satisfied are you overall with your intimate life?",
+    "placeholder12": "Choose option",
+    "overallSatisfactionOptions": {
+      "fullySatisfied": "Fully satisfied",
+      "generallyGood": "Generally good, but room to grow",
+      "medium": "Moderate",
+      "ratherDissatisfied": "Rather dissatisfied"
+    }
   },
-
+  "AnsweresAILonersFull": {
+    "result": "Result not found."
+  },
   "footer": {
     "text": "made with"
   }

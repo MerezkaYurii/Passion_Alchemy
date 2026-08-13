@@ -1,8 +1,7 @@
 import { getDictionary } from "@/app/lib/get-dictionary";
+import CoupleFullResultClient from "@/components/CoupleFullResultClient";
 
-import LonersFullResultClient from "@/components/LonersFullResultClient";
-
-export default async function ResultLonersFullPage({
+export default async function CoupleFullResultPage({
   params,
 }: {
   params: Promise<{ lang: "en" | "ru" }>;
@@ -16,12 +15,12 @@ export default async function ResultLonersFullPage({
       <div className="container w-full max-w-7x bg-gray-800/60 mb-6 mt-6 rounded-2xl">
         <div className="max-w-4xl bg-gray-900/50 mt-10 mb-10 mx-auto p-6 rounded-2xl">
           <h2 className="text-lg sm:text-xl lg:text-2xl italic font-light text-left pl-10 text-white">
-            {dict.resultPage.title}
+            {dict.resultPageCoupleFull.title}
           </h2>
           <div className="mt-2 ml-10 h-1 w-16 bg-[#0f3995] rounded mb2" />
 
           {/* Клиентский блок с данными из стора */}
-          <LonersFullResultClient dict={dict} />
+          <CoupleFullResultClient dict={dict} />
         </div>
       </div>
     </main>

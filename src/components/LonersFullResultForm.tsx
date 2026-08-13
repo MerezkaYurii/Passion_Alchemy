@@ -7,7 +7,10 @@ import { LonersFormProps, LonersFullFormData } from "@/app/types/lonersTypes";
 import { useLonersStore } from "@/app/store/lonersSlice";
 import { useRouter } from "next/navigation";
 
-export default function LonersFullResultForm({ onResult }: LonersFormProps) {
+export default function LonersFullResultForm({
+  onResult,
+  lang,
+}: LonersFormProps & { lang: "ru" | "en" }) {
   const dict = useDictionary();
   const router = useRouter();
   const shortFormData = useLonersStore((state) => state.shortFormData);
@@ -41,12 +44,83 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
     setLoading(true);
     setFullFormData(formData);
 
-    // 2. Объединяем данные первой и второй анкет в один JSON
-    const currentLanguage = dict?.header?.language || "en";
+    if (!dict) return;
+
+    const getTranslation = (
+      optionsObj: Record<string, string> | undefined,
+      value: string | undefined,
+    ) => {
+      if (!optionsObj || !value) return value || "";
+      // Переводим snake_case в camelCase (например: understand_self -> understandSelf)
+      const camelKey = value.replace(/_([a-z])/g, (_, letter) =>
+        letter.toUpperCase(),
+      );
+      return optionsObj[camelKey] || optionsObj[value] || value;
+    };
+
+    const formattedShortForm = shortFormData
+      ? {
+          [dict.LonersForm.gender || "Пол"]: getTranslation(
+            dict.LonersForm.genderOptions,
+            shortFormData.gender,
+          ),
+          [dict.LonersForm.age || "Возраст"]: shortFormData.age,
+          [dict.LonersForm.orientation || "Ориентация"]: getTranslation(
+            dict.LonersForm.orientationOptions,
+            shortFormData.orientation,
+          ),
+          [dict.LonersForm.relationshipStatus || "Статус отношений"]:
+            getTranslation(
+              dict.LonersForm.statusOptions,
+              shortFormData.relationshipStatus,
+            ),
+          [dict.LonersForm.mainGoal || "Основная цель"]: getTranslation(
+            dict.LonersForm.goalOptions,
+            shortFormData.mainGoal,
+          ),
+          [dict.LonersForm.preferredPace || "Предпочитаемый темп"]:
+            getTranslation(
+              dict.LonersForm.paceOptions,
+              shortFormData.preferredPace,
+            ),
+          [dict.LonersForm.emotionalConnection || "Эмоциональная связь"]:
+            getTranslation(
+              dict.LonersForm.emotionalConnectionOptions,
+              shortFormData.emotionalConnection,
+            ),
+          [dict.LonersForm.hasIssues || "Есть ли сложности"]: getTranslation(
+            dict.LonersForm.hasIssuesOptions,
+            shortFormData.hasIssues,
+          ),
+        }
+      : {};
+
+    // Формируем формат "Вопрос: Ответ" для отправки в API
+    const formattedData = {
+      [dict.LonersFullResultForm.sexualDesireFrequency]:
+        formData.sexualDesireFrequency,
+      [dict.LonersFullResultForm.sexualDesireTriggers]:
+        formData.sexualDesireTriggers,
+      [dict.LonersFullResultForm.preludeImportance]: formData.preludeImportance,
+      [dict.LonersFullResultForm.initiativePartner]: formData.initiativePartner,
+      [dict.LonersFullResultForm.experimentsAttitude]:
+        formData.experimentsAttitude,
+      [dict.LonersFullResultForm.feelingWanted]: formData.feelingWanted,
+      [dict.LonersFullResultForm.biggestBlock]: formData.biggestBlock,
+      [dict.LonersFullResultForm.postcoitalFeeling]: formData.postcoitalFeeling,
+      [dict.LonersFullResultForm.communicationOpenness]:
+        formData.communicationOpenness,
+      [dict.LonersFullResultForm.whatIsMoreImportant]:
+        formData.whatIsMoreImportant,
+      [dict.LonersFullResultForm.masturbationFrequency]:
+        formData.masturbationFrequency,
+      [dict.LonersFullResultForm.biggestNeed]: formData.biggestNeed,
+    };
+
     const payload = {
-      ...shortFormData, // Ответы 1-й анкеты
-      ...formData, // Ответы 2-й анкеты
-      lang: currentLanguage,
+      shortFormData: formattedShortForm,
+      answers: formattedData,
+      lang: lang,
     };
 
     try {
@@ -60,10 +134,7 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
 
       if (!res.ok) {
         const errorText = await res.text();
-        console.error(
-          "Server error (text) / Ошибка сервера (текст):",
-          errorText,
-        );
+        console.error("Server error:", errorText);
         setLoading(false);
         return;
       }
@@ -84,12 +155,12 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
         onResult(result);
       }
 
-      // Вытаскиваем текст результата
       const resultText = result.text || result.analysis || result.output || "";
-      // Переходим на отдельную страницу результата
-      router.push(`/lonersFull/result?text=${encodeURIComponent(resultText)}`);
+
+      sessionStorage.setItem("lonerResult", resultText);
+      router.push(`/${lang}/lonersFullResult`);
     } catch (error) {
-      console.error("Client-side error / Ошибка на клиенте", error);
+      console.error("Client-side error", error);
     } finally {
       setLoading(false);
     }
@@ -101,8 +172,12 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
     <section className="px-2 py-4 sm:px-4 lg:px-6 w-full h-auto">
       {loading && <GlobalLoader />}
       <div className="container mx-auto p-6 pb-8 bg-gray-900/20 backdrop-blur-md rounded-2xl max-w-4xl border border-gray-700/50 h-auto flex flex-col justify-between">
+        <h2 className="text-lg sm:text-xl lg:text-2xl italic underline font-light text-left pl-10 text-white">
+          {dict.LonersFullResultForm.title}
+        </h2>
+        <div className="mt-2 ml-10 h-1 w-16 bg-[#0f3995] rounded" />
+
         <form onSubmit={handleSubmit} className="flex flex-col gap-6 h-auto">
-          {/* Общая сетка grid для всех полей */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left items-center">
             {/* 1. Как часто у тебя возникает сексуальное желание? */}
             <div className="flex flex-col">
@@ -123,32 +198,50 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                   {dict.LonersFullResultForm.placeholder20}
                 </option>
                 <option
-                  value="almostEveryDay"
+                  value={
+                    dict.LonersFullResultForm.sexualDesireFrequencyOptions
+                      ?.almostEveryDay || ""
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {dict.LonersFullResultForm.sexualDesireFrequencyOptions
                     ?.almostEveryDay || ""}
                 </option>
                 <option
-                  value="severalTimesAWeek"
+                  value={
+                    dict.LonersFullResultForm.sexualDesireFrequencyOptions
+                      ?.severalTimesAWeek || ""
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {dict.LonersFullResultForm.sexualDesireFrequencyOptions
                     ?.severalTimesAWeek || ""}
                 </option>
-                <option value="onceAWeek" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.sexualDesireFrequencyOptions
+                      ?.onceAWeek || ""
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.sexualDesireFrequencyOptions
                     ?.onceAWeek || ""}
                 </option>
                 <option
-                  value="lessThanOnceAWeek"
+                  value={
+                    dict.LonersFullResultForm.sexualDesireFrequencyOptions
+                      ?.lessThanOnceAWeek || ""
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {dict.LonersFullResultForm.sexualDesireFrequencyOptions
                     ?.lessThanOnceAWeek || ""}
                 </option>
                 <option
-                  value="dependsOnMood"
+                  value={
+                    dict.LonersFullResultForm.sexualDesireFrequencyOptions
+                      ?.dependsOnMood || ""
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {dict.LonersFullResultForm.sexualDesireFrequencyOptions
@@ -179,36 +272,60 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                   {dict.LonersFullResultForm.placeholder21}
                 </option>
                 <option
-                  value="emotionalCloseness"
+                  value={
+                    dict.LonersFullResultForm.sexualDesireTriggersOptions
+                      ?.emotionalCloseness || ""
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {dict.LonersFullResultForm.sexualDesireTriggersOptions
                     ?.emotionalCloseness || ""}
                 </option>
                 <option
-                  value="physicalTouch"
+                  value={
+                    dict.LonersFullResultForm.sexualDesireTriggersOptions
+                      ?.physicalTouch || ""
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {dict.LonersFullResultForm.sexualDesireTriggersOptions
                     ?.physicalTouch || ""}
                 </option>
                 <option
-                  value="visualImagination"
+                  value={
+                    dict.LonersFullResultForm.sexualDesireTriggersOptions
+                      ?.visualImagination || ""
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {dict.LonersFullResultForm.sexualDesireTriggersOptions
                     ?.visualImagination || ""}
                 </option>
-                <option value="atmosphere" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.sexualDesireTriggersOptions
+                      ?.atmosphere || ""
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.sexualDesireTriggersOptions
                     ?.atmosphere || ""}
                 </option>
-                <option value="spontaneity" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.sexualDesireTriggersOptions
+                      ?.spontaneity || ""
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.sexualDesireTriggersOptions
                     ?.spontaneity || ""}
                 </option>
                 <option
-                  value="dependsOnMood"
+                  value={
+                    dict.LonersFullResultForm.sexualDesireTriggersOptions
+                      ?.dependsOnMood || ""
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {dict.LonersFullResultForm.sexualDesireTriggersOptions
@@ -238,20 +355,39 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                 <option value="" disabled className="bg-gray-800 text-gray-400">
                   {dict.LonersFullResultForm.placeholder22}
                 </option>
-                <option value="essential" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.preludeImportanceOptions
+                      .veryImportant
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {
                     dict.LonersFullResultForm.preludeImportanceOptions
                       .veryImportant
                   }
                 </option>
-                <option value="important" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.preludeImportanceOptions.important
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.preludeImportanceOptions.important}
                 </option>
-                <option value="middle" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.preludeImportanceOptions.middle
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.preludeImportanceOptions.middle}
                 </option>
                 <option
-                  value="notSoImportant"
+                  value={
+                    dict.LonersFullResultForm.preludeImportanceOptions
+                      .notSoImportant
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {
@@ -265,7 +401,7 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
               {dict.LonersFullResultForm.preludeImportanceText}
             </div>
 
-            {/* 4. Кто чаще проявляет инициативу?   */}
+            {/* 4. Кто чаще проявляет инициативу? */}
             <div className="flex flex-col">
               <label className="text-white font-light text-ms mb-1">
                 {dict.LonersFullResultForm.initiativePartner}
@@ -283,20 +419,31 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                 <option value="" disabled className="bg-gray-800 text-gray-400">
                   {dict.LonersFullResultForm.placeholder23}
                 </option>
-                <option value="usualyMe" className="bg-gray-800 text-white">
+                <option
+                  value={dict.LonersFullResultForm.initiativOptions.usualyMe}
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.initiativOptions.usualyMe}
                 </option>
                 <option
-                  value="usualyPartner"
+                  value={
+                    dict.LonersFullResultForm.initiativOptions.usualyPartner
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {dict.LonersFullResultForm.initiativOptions.usualyPartner}
                 </option>
-                <option value="aboutEqual" className="bg-gray-800 text-white">
+                <option
+                  value={dict.LonersFullResultForm.initiativOptions.aboutEqual}
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.initiativOptions.aboutEqual}
                 </option>
                 <option
-                  value="dependsOnSituation"
+                  value={
+                    dict.LonersFullResultForm.initiativOptions
+                      .dependsOnSituation
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {
@@ -305,7 +452,9 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                   }
                 </option>
                 <option
-                  value="hardToInitiate"
+                  value={
+                    dict.LonersFullResultForm.initiativOptions.hardToInitiate
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {dict.LonersFullResultForm.initiativOptions.hardToInitiate}
@@ -316,7 +465,7 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
               {dict.LonersFullResultForm.initiativText}
             </div>
 
-            {/* 5. Как ты относишься к экспериментам в сексе?  */}
+            {/* 5. Как ты относишься к экспериментам в сексе? */}
             <div className="flex flex-col">
               <label className="text-white font-light text-ms mb-1">
                 {dict.LonersFullResultForm.experimentsAttitude}
@@ -334,14 +483,23 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                 <option value="" disabled className="bg-gray-800 text-gray-400">
                   {dict.LonersFullResultForm.placeholder24}
                 </option>
-                <option value="veryOpen" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.experimentsAttitudeOptions
+                      .veryOpen
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {
                     dict.LonersFullResultForm.experimentsAttitudeOptions
                       .veryOpen
                   }
                 </option>
                 <option
-                  value="openWithCaution"
+                  value={
+                    dict.LonersFullResultForm.experimentsAttitudeOptions
+                      .openWithCaution
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {
@@ -349,14 +507,23 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                       .openWithCaution
                   }
                 </option>
-                <option value="likeFamiliar" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.experimentsAttitudeOptions
+                      .likeFamiliar
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {
                     dict.LonersFullResultForm.experimentsAttitudeOptions
                       .likeFamiliar
                   }
                 </option>
                 <option
-                  value="closedToExperiments"
+                  value={
+                    dict.LonersFullResultForm.experimentsAttitudeOptions
+                      .closedToExperiments
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {
@@ -370,7 +537,7 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
               {dict.LonersFullResultForm.experimentsAttitudeText}
             </div>
 
-            {/* 6. Насколько тебе важно чувствовать себя желанным(-ой)?  */}
+            {/* 6. Насколько тебе важно чувствовать себя желанным(-ой)? */}
             <div className="flex flex-col">
               <label className="text-white font-light text-ms mb-1">
                 {dict.LonersFullResultForm.feelingWanted}
@@ -382,25 +549,39 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                 className={`w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2.5 focus:outline-none focus:border-blue-500 transition-colors ${
                   formData.feelingWanted === "" ? "text-gray-400" : "text-white"
                 }`}
-                required
               >
                 <option value="" disabled className="bg-gray-800 text-gray-400">
                   {dict.LonersFullResultForm.placeholder25}
                 </option>
-                <option value="critical" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.feelingWantedOptions.critical
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.feelingWantedOptions.critical}
                 </option>
                 <option
-                  value="veryImportant"
+                  value={
+                    dict.LonersFullResultForm.feelingWantedOptions.veryImportant
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {dict.LonersFullResultForm.feelingWantedOptions.veryImportant}
                 </option>
-                <option value="important" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.feelingWantedOptions.important
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.feelingWantedOptions.important}
                 </option>
                 <option
-                  value="notSoImportant"
+                  value={
+                    dict.LonersFullResultForm.feelingWantedOptions
+                      .notSoImportant
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {
@@ -414,7 +595,7 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
               {dict.LonersFullResultForm.feelingWantedText}
             </div>
 
-            {/* 7. Что для тебя является самым большим блоком в интимной жизни?  */}
+            {/* 7. Что для тебя является самым большим блоком в интимной жизни? */}
             <div className="flex flex-col">
               <label className="text-white font-light text-ms mb-1">
                 {dict.LonersFullResultForm.biggestBlock}
@@ -430,25 +611,46 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                 <option value="" disabled className="bg-gray-800 text-gray-400">
                   {dict.LonersFullResultForm.placeholder26}
                 </option>
-                <option value="anxiety" className="bg-gray-800 text-white">
+                <option
+                  value={dict.LonersFullResultForm.biggestBlockOptions.anxiety}
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.biggestBlockOptions.anxiety}
                 </option>
-                <option value="stress" className="bg-gray-800 text-white">
+                <option
+                  value={dict.LonersFullResultForm.biggestBlockOptions.stress}
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.biggestBlockOptions.stress}
                 </option>
                 <option
-                  value="arousalIssues"
+                  value={
+                    dict.LonersFullResultForm.biggestBlockOptions.arousalIssues
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {dict.LonersFullResultForm.biggestBlockOptions.arousalIssues}
                 </option>
-                <option value="insecurity" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.biggestBlockOptions.insecurity
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.biggestBlockOptions.insecurity}
                 </option>
-                <option value="loneliness" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.biggestBlockOptions.loneliness
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.biggestBlockOptions.loneliness}
                 </option>
-                <option value="none" className="bg-gray-800 text-white">
+                <option
+                  value={dict.LonersFullResultForm.biggestBlockOptions.none}
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.biggestBlockOptions.none}
                 </option>
               </select>
@@ -475,25 +677,60 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                 <option value="" disabled className="bg-gray-800 text-gray-400">
                   {dict.LonersFullResultForm.placeholder3}
                 </option>
-                <option value="connected" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.postcoitalFeelingOptions.connected
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.postcoitalFeelingOptions.connected}
                 </option>
-                <option value="relaxed" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.postcoitalFeelingOptions.relaxed
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.postcoitalFeelingOptions.relaxed}
                 </option>
-                <option value="energetic" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.postcoitalFeelingOptions.energetic
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.postcoitalFeelingOptions.energetic}
                 </option>
-                <option value="satisfied" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.postcoitalFeelingOptions.satisfied
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.postcoitalFeelingOptions.satisfied}
                 </option>
-                <option value="tired" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.postcoitalFeelingOptions.tired
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.postcoitalFeelingOptions.tired}
                 </option>
-                <option value="neutral" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.postcoitalFeelingOptions.neutral
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.postcoitalFeelingOptions.neutral}
                 </option>
-                <option value="avoidance" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.postcoitalFeelingOptions.avoidance
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.postcoitalFeelingOptions.avoidance}
                 </option>
               </select>
@@ -502,7 +739,7 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
               {dict.LonersFullResultForm.postcoitalFeelingText}
             </div>
 
-            {/* 9. Насколько ты открыт(-а) говорить с партнёром о своих желаниях?  */}
+            {/* 9. Насколько ты открыт(-а) говорить с партнёром о своих желаниях? */}
             <div className="flex flex-col">
               <label className="text-white font-light text-ms mb-1">
                 {dict.LonersFullResultForm.communicationOpenness}
@@ -520,26 +757,47 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                 <option value="" disabled className="bg-gray-800 text-gray-400">
                   {dict.LonersFullResultForm.placeholder31}
                 </option>
-                <option value="openly" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.communicationOpennessOptions
+                      .openly
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {
                     dict.LonersFullResultForm.communicationOpennessOptions
                       .openly
                   }
                 </option>
-                <option value="sometimes" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.communicationOpennessOptions
+                      .sometimes
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {
                     dict.LonersFullResultForm.communicationOpennessOptions
                       .sometimes
                   }
                 </option>
-                <option value="hardToSay" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.communicationOpennessOptions
+                      .hardToSay
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {
                     dict.LonersFullResultForm.communicationOpennessOptions
                       .hardToSay
                   }
                 </option>
                 <option
-                  value="dependsOnPartner"
+                  value={
+                    dict.LonersFullResultForm.communicationOpennessOptions
+                      .dependsOnPartner
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {
@@ -572,7 +830,10 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                   {dict.LonersFullResultForm.placeholder32}
                 </option>
                 <option
-                  value="emotionalConnection"
+                  value={
+                    dict.LonersFullResultForm.whatIsMoreImportantOptions
+                      .emotionalConnection
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {
@@ -581,7 +842,10 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                   }
                 </option>
                 <option
-                  value="physicalPleasure"
+                  value={
+                    dict.LonersFullResultForm.whatIsMoreImportantOptions
+                      .physicalPleasure
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {
@@ -589,20 +853,37 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                       .physicalPleasure
                   }
                 </option>
-                <option value="dominance" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.whatIsMoreImportantOptions
+                      .dominance
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {
                     dict.LonersFullResultForm.whatIsMoreImportantOptions
                       .dominance
                   }
                 </option>
-                <option value="playfulness" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.whatIsMoreImportantOptions
+                      .playfulness
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {
                     dict.LonersFullResultForm.whatIsMoreImportantOptions
                       .playfulness
                   }
                 </option>
-
-                <option value="intensity" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.whatIsMoreImportantOptions
+                      .intensity
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {
                     dict.LonersFullResultForm.whatIsMoreImportantOptions
                       .intensity
@@ -633,7 +914,10 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                   {dict.LonersFullResultForm.placeholder33}
                 </option>
                 <option
-                  value="severalTimesAWeek"
+                  value={
+                    dict.LonersFullResultForm.masturbationFrequencyOptions
+                      .severalTimesAWeek
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {
@@ -641,27 +925,47 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                       .severalTimesAWeek
                   }
                 </option>
-                <option value="onceAWeek" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.masturbationFrequencyOptions
+                      .onceAWeek
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {
                     dict.LonersFullResultForm.masturbationFrequencyOptions
                       .onceAWeek
                   }
                 </option>
-                <option value="rarely" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.masturbationFrequencyOptions
+                      .rarely
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {
                     dict.LonersFullResultForm.masturbationFrequencyOptions
                       .rarely
                   }
                 </option>
-                <option value="almostNever" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.masturbationFrequencyOptions
+                      .almostNever
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {
                     dict.LonersFullResultForm.masturbationFrequencyOptions
                       .almostNever
                   }
                 </option>
-
                 <option
-                  value="preferNotToSay"
+                  value={
+                    dict.LonersFullResultForm.masturbationFrequencyOptions
+                      .preferNotToSay
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {
@@ -675,7 +979,7 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
               {dict.LonersFullResultForm.masturbationFrequencyText}
             </div>
 
-            {/* 12. Чего тебе сейчас больше всего не хватает в сексуальной сфере?   */}
+            {/* 12. Чего тебе сейчас больше всего не хватает в сексуальной сфере? */}
             <div className="flex flex-col">
               <label className="text-white font-light text-ms mb-1">
                 {dict.LonersFullResultForm.biggestNeed}
@@ -692,7 +996,10 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                   {dict.LonersFullResultForm.placeholder34}
                 </option>
                 <option
-                  value="emotionalConnection"
+                  value={
+                    dict.LonersFullResultForm.biggestNeedOptions
+                      .emotionalConnection
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {
@@ -700,25 +1007,42 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
                       .emotionalConnection
                   }
                 </option>
-                <option value="moreVariety" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.biggestNeedOptions.moreVariety
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.biggestNeedOptions.moreVariety}
                 </option>
                 <option
-                  value="betterTechnique"
+                  value={
+                    dict.LonersFullResultForm.biggestNeedOptions.betterTechnique
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {dict.LonersFullResultForm.biggestNeedOptions.betterTechnique}
                 </option>
                 <option
-                  value="moreInitiative"
+                  value={
+                    dict.LonersFullResultForm.biggestNeedOptions.moreInitiative
+                  }
                   className="bg-gray-800 text-white"
                 >
                   {dict.LonersFullResultForm.biggestNeedOptions.moreInitiative}
                 </option>
-                <option value="lessAnxiety" className="bg-gray-800 text-white">
+                <option
+                  value={
+                    dict.LonersFullResultForm.biggestNeedOptions.lessAnxiety
+                  }
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.biggestNeedOptions.lessAnxiety}
                 </option>
-                <option value="noPartner" className="bg-gray-800 text-white">
+                <option
+                  value={dict.LonersFullResultForm.biggestNeedOptions.noPartner}
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersFullResultForm.biggestNeedOptions.noPartner}
                 </option>
               </select>
@@ -728,11 +1052,10 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
             </div>
           </div>
 
-          {/* Кнопка отправки */}
           <button
             type="submit"
             disabled={loading || isSubmitted}
-            className="w-full md:w-1/2 mx-auto mt-6 py-3 bg-[#0f3995] border-[#0f3995] hover:bg-[#0f3995]/80 text-white font-light rounded-full shadow-sm hover:shadow-white transition-all  border duration-300"
+            className="w-full md:w-1/2 mx-auto mt-6 py-3 bg-[#0f3995] border-[#0f3995] hover:bg-[#0f3995]/80 text-white font-light rounded-full shadow-sm hover:shadow-white transition-all border duration-300"
           >
             {loading ? dict.LonersForm.submitLoading : dict.LonersForm.submit}
           </button>
@@ -741,6 +1064,3 @@ export default function LonersFullResultForm({ onResult }: LonersFormProps) {
     </section>
   );
 }
-
-//Чтобы получить результат в другом компоненте, используй
-//setLonersResult(result);

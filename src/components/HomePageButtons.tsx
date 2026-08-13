@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Image from 'next/image';
-import { useDictionary } from '@/app/DictionaryContext';
-import { useRouter, usePathname } from 'next/navigation';
+import React from "react";
+import Image from "next/image";
+import { useDictionary } from "@/app/DictionaryContext";
+import { useRouter, usePathname } from "next/navigation";
 
 // Оставляем снаружи только то, что не зависит от языка
 const buttonsConfig = [
   {
-    id: 'button1',
-    image: '/bgAlone.jpg',
-    path: '/loners',
+    id: "button1",
+    image: "/bgAlone.jpg",
+    path: "/loners",
   },
   {
-    id: 'button2',
-    image: '/bgCouple.jpg',
-    path: '/pairs',
-  }
+    id: "button2",
+    image: "/bgCouple.jpg",
+    path: "/couple",
+  },
 ];
 
 const HomePageButtons = () => {
@@ -25,14 +25,14 @@ const HomePageButtons = () => {
   const dict = useDictionary();
 
   const getCurrentLang = () => {
-    const segments = pathname.split('/');
-  
-    return segments[1] || 'en';
+    const segments = pathname.split("/");
+
+    return segments[1] || "en";
   };
 
   const handleNavigate = (path: string) => {
     const lang = getCurrentLang();
- 
+
     router.push(`/${lang}${path}`);
   };
 
@@ -42,7 +42,7 @@ const HomePageButtons = () => {
     <section className="px-4 py-8 md:px-6 lg:px-8">
       <div className="container mx-auto space-y-6">
         {buttonsConfig.map((button) => {
-          type ButtonKeys = 'button1' | 'button2';
+          type ButtonKeys = "button1" | "button2";
           const textData = dict.HomePageButtons[button.id as ButtonKeys];
 
           if (!textData) return null;

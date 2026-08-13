@@ -3,6 +3,7 @@ export interface CoupleFormData {
       gender: string,
       age:string,
       orientation: string,
+      pace:string,
       preferredPace: string,
       emotionalConnection: string,
       sexualDesire: string,
@@ -10,12 +11,13 @@ export interface CoupleFormData {
     partner2: {
       gender: string,
       age: string,
+      pace:string,
       orientation: string,
       preferredPace: string,
       emotionalConnection: string,
       sexualDesire: string,
     },
-    mainImprovementGoal: string,
+    intimateGoal: string,
     lang:string
   }
 
@@ -35,3 +37,30 @@ response?: string;
   analysis?: string;
 }
 
+export interface PartnerData {
+  desireFrequency: string;
+  desireTriggers: string;
+  foreplayImportance: string;
+  initiative: string;
+  experimentsOpenness: string;
+  feelingDesiredImportance: string;
+  relaxationBarriers: string;
+  desireCommunicationEase: string;
+}
+
+export interface PairData {
+  currentSexFrequency: string;
+  mainIssues: string;
+  desiredAdditions: string;
+  overallSatisfaction: string;
+}
+
+export interface CoupleSurveyFormData {
+  partner1: PartnerData;
+  partner2: PartnerData;
+  pair: PairData;
+}
+export interface CoupleSurveyFormProps {
+  onSubmit?: (data: CoupleSurveyFormData) => void;
+  lang?: "ru" | "en";
+}

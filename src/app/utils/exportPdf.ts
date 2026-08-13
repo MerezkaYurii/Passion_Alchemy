@@ -6,60 +6,49 @@ export const exportElementToPdf = async (
   filename = 'document.pdf',
 ) => {
   const element = document.getElementById(elementId);
-  if (!element) return;
+  if (!element) {
+    console.error(`Element with id "${elementId}" not found!`);
+    return;
+  }
 
-  // 1. Сохраняем исходный белый фон самого контейнера
+  // Запоминаем стили
   const originalBg = element.style.backgroundColor;
-  element.style.backgroundColor = '#ffffff';
-
-  // 2. Находим все текстовые элементы внутри и делаем их черными
-  const textElements = element.querySelectorAll<HTMLElement>('*');
-  const originalColors = new Map<HTMLElement, string>();
-
-  textElements.forEach((el) => {
-    originalColors.set(el, el.style.color);
-    el.style.color = '#000000';
-  });
+  element.style.backgroundColor = '#111827'; // Тёмный фон под стиль приложения
 
   try {
-    // Даем браузеру перескрасить элементы
-    await new Promise((resolve) => setTimeout(resolve, 50));
-
     const canvas = await html2canvas(element, {
       scale: 2,
       useCORS: true,
+      backgroundColor: '#111827',
+      logging: false,
     });
 
-    const imgData = canvas.toDataURL('image/jpeg', 0.98);
+    const imgData = canvas.toDataURL('image/jpeg', 0.95);
 
     const pdf = new jsPDF('p', 'mm', 'a4');
     const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
     const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
     let heightLeft = pdfHeight;
     let position = 0;
 
+    // Первая страница
     pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, pdfHeight);
-    heightLeft -= pdf.internal.pageSize.getHeight();
+    heightLeft -= pageHeight;
 
-    while (heightLeft >= 0) {
-      position = heightLeft - pdfHeight;
+    // Последующие страницы
+    while (heightLeft > 0) {
+      position -= pageHeight;
       pdf.addPage();
       pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, pdfHeight);
-      heightLeft -= pdf.internal.pageSize.getHeight();
+      heightLeft -= pageHeight;
     }
 
     pdf.save(filename);
   } catch (error) {
-    console.error('Ошибка при генерации PDF:', error);
+    console.error('Error creating PDF:', error);
   } finally {
-    // 3. Возвращаем всё как было на экране
     element.style.backgroundColor = originalBg;
-    textElements.forEach((el) => {
-      const origColor = originalColors.get(el);
-      if (origColor !== undefined) {
-        el.style.color = origColor;
-      }
-    });
   }
 };

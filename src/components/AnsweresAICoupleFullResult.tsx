@@ -3,7 +3,11 @@
 import { Dictionary } from "@/i18n-config";
 import { useState } from "react";
 
-export default function AnsweresAILonersFull({ dict }: { dict: Dictionary }) {
+export default function AnsweresAICoupleFullResult({
+  dict,
+}: {
+  dict: Dictionary;
+}) {
   const [text] = useState<string>(() => {
     if (typeof window !== "undefined") {
       return sessionStorage.getItem("lonerResult") || "";

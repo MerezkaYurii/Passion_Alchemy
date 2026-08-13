@@ -1,30 +1,31 @@
-'use client';
+"use client";
 
-import { useDictionary } from '@/app/hooks/useDictionary';
-import { useState } from 'react';
-import GlobalLoader from './GlobalLoader';
-import { LonersFormData, LonersFormProps } from '@/app/types/lonersTypes';
-import { useLonersStore } from '@/app/store/lonersSlice';
-
+import { useDictionary } from "@/app/hooks/useDictionary";
+import { useState } from "react";
+import GlobalLoader from "./GlobalLoader";
+import { LonersFormData, LonersFormProps } from "@/app/types/lonersTypes";
+import { useLonersStore } from "@/app/store/lonersSlice";
+import { buildLonerAIPayload } from "@/app/utils/buildLonerAIPayload";
 
 export default function LonersForm({ onResult }: LonersFormProps) {
   const dict = useDictionary();
-const setLonersResult = useLonersStore((state) => state.setLonersResult);
+  const setLonersResult = useLonersStore((state) => state.setLonersResult);
+  const setShortFormData = useLonersStore((state) => state.setShortFormData);
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState<LonersFormData>({
-    gender: '',
-    age: '',
-    orientation: '',
-    relationshipStatus: '',
-    mainGoal: '',
-    preferredPace: '',
-    emotionalConnection: '',
-    hasIssues: '',
+    gender: "",
+    age: "",
+    orientation: "",
+    relationshipStatus: "",
+    mainGoal: "",
+    preferredPace: "",
+    emotionalConnection: "",
+    hasIssues: "",
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -32,20 +33,19 @@ const setLonersResult = useLonersStore((state) => state.setLonersResult);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading || isSubmitted) return;
     setLoading(true);
-
-
-
+    setShortFormData(formData);
     try {
-      const currentLanguage = dict?.header?.language || 'en';
-      const payload = {
-        ...formData,
-        lang: currentLanguage,
-      };
-     const res = await fetch('/api/loners', {
-        method: 'POST',
+      const currentLanguage = (dict?.header?.language as "ru" | "en") || "en";
+
+      // Формируем payload через новый хелпер
+      const payload = buildLonerAIPayload(formData, {}, currentLanguage, dict);
+
+      const res = await fetch("/api/loners", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
       });
@@ -53,36 +53,30 @@ const setLonersResult = useLonersStore((state) => state.setLonersResult);
       if (!res.ok) {
         const errorText = await res.text();
         console.error(
-          'Server error (text) / Ошибка сервера (текст):',
-          errorText
+          "Server error (text) / Ошибка сервера (текст):",
+          errorText,
         );
         setLoading(false);
         return;
       }
 
-
-const contentType = res.headers.get('content-type') || '';
+      const contentType = res.headers.get("content-type") || "";
       let result;
 
-      if (contentType.includes('application/json')) {
-       const data = await res.json();
-  result = Array.isArray(data) ? data[0] : data;
+      if (contentType.includes("application/json")) {
+        const data = await res.json();
+        result = Array.isArray(data) ? data[0] : data;
       } else {
         const textResult = await res.text();
         result = { text: textResult };
       }
 
-
-
-
-
-
-  
       setLonersResult(result);
       setIsSubmitted(true);
       onResult(result);
     } catch (error) {
-      console.error('Client-side error / Ошибка на клиенте', error);
+      console.error("Client-side error / Ошибка на клиенте", error);
+      setIsSubmitted(false);
     } finally {
       setLoading(false);
     }
@@ -97,31 +91,30 @@ const contentType = res.headers.get('content-type') || '';
         <form onSubmit={handleSubmit} className="flex flex-col gap-6 h-auto">
           {/* Общая сетка grid для всех полей */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left items-center">
-            
             {/* 1. Пол */}
             <div className="flex flex-col">
               <label className="text-white font-light text-ms mb-1">
                 {dict.LonersForm.gender}
-            </label>
-  <select
-    name="gender"
-    value={formData.gender}
-    onChange={handleChange}
-    className={`w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2.5 focus:outline-none focus:border-blue-500 transition-colors ${
-      formData.gender === '' ? 'text-gray-400' : 'text-white'
-    }`}
-    required
-  >
-    <option value="" disabled className="bg-gray-800 text-gray-400">
-      {dict.LonersForm.placeholder1}
-    </option>
-    <option value="male" className="bg-gray-800 text-white">
-      {dict.LonersForm.genderOptions?.male || 'Мужчина'}
-    </option>
-    <option value="female" className="bg-gray-800 text-white">
-      {dict.LonersForm.genderOptions?.female || 'Женщина'}
-    </option>
-  </select>
+              </label>
+              <select
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                className={`w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2.5 focus:outline-none focus:border-blue-500 transition-colors ${
+                  formData.gender === "" ? "text-gray-400" : "text-white"
+                }`}
+                required
+              >
+                <option value="" disabled className="bg-gray-800 text-gray-400">
+                  {dict.LonersForm.placeholder1}
+                </option>
+                <option value="male" className="bg-gray-800 text-white">
+                  {dict.LonersForm.genderOptions?.male || "Мужчина"}
+                </option>
+                <option value="female" className="bg-gray-800 text-white">
+                  {dict.LonersForm.genderOptions?.female || "Женщина"}
+                </option>
+              </select>
             </div>
             <div className="text-white font-light text-sm hidden md:block pl-2">
               {dict.LonersForm.genderText}
@@ -158,7 +151,7 @@ const contentType = res.headers.get('content-type') || '';
                 value={formData.orientation}
                 onChange={handleChange}
                 className={`w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2.5 focus:outline-none focus:border-blue-500 transition-colors ${
-                  formData.orientation === '' ? 'text-gray-400' : 'text-white'
+                  formData.orientation === "" ? "text-gray-400" : "text-white"
                 }`}
                 required
               >
@@ -193,7 +186,9 @@ const contentType = res.headers.get('content-type') || '';
                 value={formData.relationshipStatus}
                 onChange={handleChange}
                 className={`w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2.5 focus:outline-none focus:border-blue-500 transition-colors ${
-                  formData.relationshipStatus === '' ? 'text-gray-400' : 'text-white'
+                  formData.relationshipStatus === ""
+                    ? "text-gray-400"
+                    : "text-white"
                 }`}
                 required
               >
@@ -203,7 +198,10 @@ const contentType = res.headers.get('content-type') || '';
                 <option value="single" className="bg-gray-800 text-white">
                   {dict.LonersForm.statusOptions.single}
                 </option>
-                <option value="inrelationship" className="bg-gray-800 text-white">
+                <option
+                  value="inrelationship"
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersForm.statusOptions.inrelationship}
                 </option>
                 <option value="married" className="bg-gray-800 text-white">
@@ -228,23 +226,35 @@ const contentType = res.headers.get('content-type') || '';
                 value={formData.mainGoal}
                 onChange={handleChange}
                 className={`w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2.5 focus:outline-none focus:border-blue-500 transition-colors ${
-                  formData.mainGoal === '' ? 'text-gray-400' : 'text-white'
+                  formData.mainGoal === "" ? "text-gray-400" : "text-white"
                 }`}
                 required
               >
                 <option value="" disabled className="bg-gray-800 text-gray-400">
                   {dict.LonersForm.placeholder5}
                 </option>
-                <option value="understand_self" className="bg-gray-800 text-white">
+                <option
+                  value="understand_self"
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersForm.goalOptions.understandSelf}
                 </option>
-                <option value="increase_desire" className="bg-gray-800 text-white">
+                <option
+                  value="increase_desire"
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersForm.goalOptions.increaseDesire}
                 </option>
-                <option value="improve_intimate_life" className="bg-gray-800 text-white">
+                <option
+                  value="improve_intimate_life"
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersForm.goalOptions.improveIntimateLife}
                 </option>
-                <option value="explore_preferences" className="bg-gray-800 text-white">
+                <option
+                  value="explore_preferences"
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersForm.goalOptions.explorePreferences}
                 </option>
               </select>
@@ -263,7 +273,7 @@ const contentType = res.headers.get('content-type') || '';
                 value={formData.preferredPace}
                 onChange={handleChange}
                 className={`w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2.5 focus:outline-none focus:border-blue-500 transition-colors ${
-                  formData.preferredPace === '' ? 'text-gray-400' : 'text-white'
+                  formData.preferredPace === "" ? "text-gray-400" : "text-white"
                 }`}
                 required
               >
@@ -273,13 +283,19 @@ const contentType = res.headers.get('content-type') || '';
                 <option value="gentle_slow" className="bg-gray-800 text-white">
                   {dict.LonersForm.paceOptions.gentleSlow}
                 </option>
-                <option value="passionate_intense" className="bg-gray-800 text-white">
+                <option
+                  value="passionate_intense"
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersForm.paceOptions.passionateIntense}
                 </option>
                 <option value="varied" className="bg-gray-800 text-white">
                   {dict.LonersForm.paceOptions.varied}
                 </option>
-                <option value="depends_on_mood" className="bg-gray-800 text-white">
+                <option
+                  value="depends_on_mood"
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersForm.paceOptions.dependsOnMood}
                 </option>
               </select>
@@ -298,20 +314,28 @@ const contentType = res.headers.get('content-type') || '';
                 value={formData.emotionalConnection}
                 onChange={handleChange}
                 className={`w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2.5 focus:outline-none focus:border-blue-500 transition-colors ${
-                  formData.emotionalConnection === '' ? 'text-gray-400' : 'text-white'
+                  formData.emotionalConnection === ""
+                    ? "text-gray-400"
+                    : "text-white"
                 }`}
                 required
               >
                 <option value="" disabled className="bg-gray-800 text-gray-400">
                   {dict.LonersForm.placeholderEmotionalConnection}
                 </option>
-                <option value="very_important" className="bg-gray-800 text-white">
+                <option
+                  value="very_important"
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersForm.emotionalConnectionOptions.veryImportant}
                 </option>
                 <option value="important" className="bg-gray-800 text-white">
                   {dict.LonersForm.emotionalConnectionOptions.important}
                 </option>
-                <option value="not_so_important" className="bg-gray-800 text-white">
+                <option
+                  value="not_so_important"
+                  className="bg-gray-800 text-white"
+                >
                   {dict.LonersForm.emotionalConnectionOptions.notSoImportant}
                 </option>
               </select>
@@ -330,7 +354,7 @@ const contentType = res.headers.get('content-type') || '';
                 value={formData.hasIssues}
                 onChange={handleChange}
                 className={`w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2.5 focus:outline-none focus:border-blue-500 transition-colors ${
-                  formData.hasIssues === '' ? 'text-gray-400' : 'text-white'
+                  formData.hasIssues === "" ? "text-gray-400" : "text-white"
                 }`}
                 required
               >
@@ -351,24 +375,18 @@ const contentType = res.headers.get('content-type') || '';
             <div className="text-white font-light text-sm hidden md:block pl-2">
               {dict.LonersForm.hasIssuesText}
             </div>
-
           </div>
 
           {/* Кнопка отправки */}
           <button
             type="submit"
             disabled={loading || isSubmitted}
-            className="w-full md:w-1/2 mx-auto mt-6 py-3 bg-[#0f3995] border-[#0f3995] hover:bg-[#0f3995]/80 text-white font-light rounded-full shadow-sm hover:shadow-white transition-all  border duration-300"
+            className="w-full md:w-1/2 mx-auto mt-6 py-3 bg-[#0f3995] border-[#0f3995] text-white font-light rounded-full shadow-sm border transition-all duration-300 hover:bg-[#0f3995]/80 hover:shadow-white disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#0f3995] disabled:hover:shadow-none"
           >
-            {loading
-              ? dict.LonersForm.submitLoading
-              : dict.LonersForm.submit}
+            {loading ? dict.LonersForm.submitLoading : dict.LonersForm.submit}
           </button>
         </form>
       </div>
     </section>
   );
 }
-
-//Чтобы получить результат в другом компоненте, используй
-//setLonersResult(result);
