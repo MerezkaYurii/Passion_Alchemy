@@ -85,18 +85,37 @@ export default function CoupleFullResultForm({
       dict,
     );
 
-    try {
-      const res = await fetch("/api/coupleFull", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+    const maxRetries = 2;
+    const retryDelay = 5000;
 
-      if (!res.ok) {
-        const errorText = await res.text();
-        console.error("Server error (text):", errorText);
+    try {
+      let res: Response | null = null;
+
+      for (let attempt = 0; attempt <= maxRetries; attempt++) {
+        try {
+          res = await fetch("/api/coupleFull", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          if (res.ok) break;
+
+          if (attempt < maxRetries) {
+            await new Promise((resolve) => setTimeout(resolve, retryDelay));
+          }
+        } catch (err) {
+          if (attempt === maxRetries) throw err;
+          await new Promise((resolve) => setTimeout(resolve, retryDelay));
+        }
+      }
+
+      if (!res || !res.ok) {
+        const errorText = res ? await res.text() : "Network Error";
+        console.error("Server error after retries:", errorText);
+        setLoading(false);
         return;
       }
 
