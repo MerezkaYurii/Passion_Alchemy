@@ -16,15 +16,14 @@ export const metadata: Metadata = {
   title: "Passion Alchemy",
   icons: {
     icon: "/LogoImage1.jpg",
-
   },
   openGraph: {
     title: "Passion Alchemy",
-    url: "",
+    url: "https://passion-alchemy.vercel.app",
     siteName: "PassionAlchemy",
     images: [
       {
-        url: "/LogoBgWhite.jpg",
+        url: "https://passion-alchemy.vercel.app/LogoBgWhite.jpg",
         width: 1200,
         height: 630,
         alt: "Passion Alchemy preview",
@@ -36,7 +35,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Passion Alchemy",
-    images: ["/LogoBgWhite.jpg"],
+    images: ["https://passion-alchemy.vercel.app/LogoBgWhite.jpg"],
   },
 };
 

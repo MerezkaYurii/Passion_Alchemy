@@ -46,51 +46,58 @@ export default function LonersFullResultForm({
 
     if (!dict) return;
 
+    // Пытаемся взять shortFormData из state или из localStorage, если state пустой
+    const effectiveShortFormData =
+      shortFormData && Object.keys(shortFormData).length > 0
+        ? shortFormData
+        : JSON.parse(localStorage.getItem("shortFormData") || "{}");
+
     const getTranslation = (
       optionsObj: Record<string, string> | undefined,
       value: string | undefined,
     ) => {
       if (!optionsObj || !value) return value || "";
-      // Переводим snake_case в camelCase (например: understand_self -> understandSelf)
       const camelKey = value.replace(/_([a-z])/g, (_, letter) =>
         letter.toUpperCase(),
       );
       return optionsObj[camelKey] || optionsObj[value] || value;
     };
 
-    const formattedShortForm = shortFormData
+    const hasShortData = Object.keys(effectiveShortFormData).length > 0;
+
+    const formattedShortForm = hasShortData
       ? {
-          [dict.LonersForm.gender || "Пол"]: getTranslation(
-            dict.LonersForm.genderOptions,
-            shortFormData.gender,
+          [dict.LonersForm?.gender || "Пол"]: getTranslation(
+            dict.LonersForm?.genderOptions,
+            effectiveShortFormData.gender,
           ),
-          [dict.LonersForm.age || "Возраст"]: shortFormData.age,
-          [dict.LonersForm.orientation || "Ориентация"]: getTranslation(
-            dict.LonersForm.orientationOptions,
-            shortFormData.orientation,
+          [dict.LonersForm?.age || "Возраст"]: effectiveShortFormData.age || "",
+          [dict.LonersForm?.orientation || "Ориентация"]: getTranslation(
+            dict.LonersForm?.orientationOptions,
+            effectiveShortFormData.orientation,
           ),
-          [dict.LonersForm.relationshipStatus || "Статус отношений"]:
+          [dict.LonersForm?.relationshipStatus || "Статус отношений"]:
             getTranslation(
-              dict.LonersForm.statusOptions,
-              shortFormData.relationshipStatus,
+              dict.LonersForm?.statusOptions,
+              effectiveShortFormData.relationshipStatus,
             ),
-          [dict.LonersForm.mainGoal || "Основная цель"]: getTranslation(
-            dict.LonersForm.goalOptions,
-            shortFormData.mainGoal,
+          [dict.LonersForm?.mainGoal || "Основная цель"]: getTranslation(
+            dict.LonersForm?.goalOptions,
+            effectiveShortFormData.mainGoal,
           ),
-          [dict.LonersForm.preferredPace || "Предпочитаемый темп"]:
+          [dict.LonersForm?.preferredPace || "Предпочитаемый темп"]:
             getTranslation(
-              dict.LonersForm.paceOptions,
-              shortFormData.preferredPace,
+              dict.LonersForm?.paceOptions,
+              effectiveShortFormData.preferredPace,
             ),
-          [dict.LonersForm.emotionalConnection || "Эмоциональная связь"]:
+          [dict.LonersForm?.emotionalConnection || "Эмоциональная связь"]:
             getTranslation(
-              dict.LonersForm.emotionalConnectionOptions,
-              shortFormData.emotionalConnection,
+              dict.LonersForm?.emotionalConnectionOptions,
+              effectiveShortFormData.emotionalConnection,
             ),
-          [dict.LonersForm.hasIssues || "Есть ли сложности"]: getTranslation(
-            dict.LonersForm.hasIssuesOptions,
-            shortFormData.hasIssues,
+          [dict.LonersForm?.hasIssues || "Есть ли сложности"]: getTranslation(
+            dict.LonersForm?.hasIssuesOptions,
+            effectiveShortFormData.hasIssues,
           ),
         }
       : {};

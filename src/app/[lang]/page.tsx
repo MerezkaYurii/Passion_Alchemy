@@ -12,7 +12,7 @@ export default async function Home({
   const { lang } = await params;
   const dict = await getDictionary(lang);
   return (
-    <main className="flex flex-col items-center ">
+    <main className="flex flex-col items-center  mb-10">
       <RulesModal dict={dict} />
       <div className="container w-full max-w-7x bg-gray-800/60 mb-20 mt-6">
         <h2 className="text-2xl md:text-3xl lg:text-4xl mb-4  text-white text-center font-medium italic mt-6">

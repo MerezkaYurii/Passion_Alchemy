@@ -36,6 +36,8 @@ export default function LonersForm({ onResult }: LonersFormProps) {
     if (loading || isSubmitted) return;
     setLoading(true);
     setShortFormData(formData);
+    // Сохраняем первую анкету в localStorage
+    localStorage.setItem("lonersShortFormData", JSON.stringify(formData));
     try {
       const currentLanguage = (dict?.header?.language as "ru" | "en") || "en";
 

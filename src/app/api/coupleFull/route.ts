@@ -7,9 +7,10 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
+
     const webhookUrl = isProduction
-      ? 'https://n8n-production-9f7d.up.railway.app/webhook/PassionAlchemyCoupleFull'
-      : 'https://n8n-production-9f7d.up.railway.app/webhook-test/PassionAlchemyCoupleFull';
+      ? 'http://169.58.214.84:5678/webhook/PassionAlchemyCoupleFull'
+      : 'http://169.58.214.84:5678/webhook-test/PassionAlchemyCoupleFull';
 
     const response = await fetch(webhookUrl, {
     method: 'POST',

@@ -31,7 +31,7 @@ export default async function LonersPage({
       >
         ← Back / Назад
       </Link>
-      <div className="container w-full max-w-7x bg-gray-800/60 mb-20 mt-6 z-10">
+      <div className="container w-full max-w-7x bg-gray-800/60 mb-30 mt-6 z-10">
         <LonersContent dict={dict} lang={lang} />
       </div>
     </main>

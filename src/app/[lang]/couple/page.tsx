@@ -31,7 +31,7 @@ export default async function CouplesPage({
       >
         ← Back / Назад
       </Link>
-      <div className="container w-full max-w-4xl bg-gray-800/40 mb-20 mt-6 z-10">
+      <div className="container w-full max-w-4xl bg-gray-800/40 mb-30 mt-6 z-10">
         <CouplesContent lang={lang} dict={dict} />
       </div>
     </main>

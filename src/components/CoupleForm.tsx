@@ -128,6 +128,7 @@ export default function CoupleForm({
       };
 
       setShortFormData(formData);
+      localStorage.setItem("coupleShortForm", JSON.stringify(formData));
       sessionStorage.setItem("coupleShortForm", JSON.stringify(formData));
 
       const res = await fetch("/api/couple", {

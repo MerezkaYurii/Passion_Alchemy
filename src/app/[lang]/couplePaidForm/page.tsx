@@ -12,7 +12,7 @@ export default async function LonersPaidFormPage({ params }: PageProps) {
   const dict = await getDictionary(lang);
 
   return (
-    <main className="min-h-screen py-10 px-4">
+    <main className="min-h-screen py-10 px-4 mb-10">
       <CoupleFullResultContent dict={dict} lang={lang} />
     </main>
   );

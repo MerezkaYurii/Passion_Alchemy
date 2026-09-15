@@ -2,6 +2,7 @@
 
 import { useLonersStore } from "@/app/store/lonersSlice";
 import { Dictionary } from "@/i18n-config";
+import { useEffect } from "react";
 
 interface UserAnswersSummaryProps {
   dict: Dictionary;
@@ -10,6 +11,21 @@ interface UserAnswersSummaryProps {
 export default function UserAnswersSummary({ dict }: UserAnswersSummaryProps) {
   const shortFormData = useLonersStore((state) => state.shortFormData);
   const fullFormData = useLonersStore((state) => state.fullFormData);
+  const setShortFormData = useLonersStore((state) => state.setShortFormData);
+
+  // Восстанавливаем данные первой анкеты из localStorage при монтировании
+  useEffect(() => {
+    if (!shortFormData) {
+      const savedData = localStorage.getItem("lonersShortFormData");
+      if (savedData) {
+        try {
+          setShortFormData(JSON.parse(savedData));
+        } catch (e) {
+          console.error("Error parsing shortFormData from localStorage", e);
+        }
+      }
+    }
+  }, [shortFormData, setShortFormData]);
 
   if (!shortFormData && !fullFormData) {
     return null;

@@ -3,6 +3,7 @@
 import { useCoupleStore } from "@/app/store/coupleSlice";
 import { Dictionary } from "@/i18n-config";
 import { PartnerData, PairData } from "@/app/types/coupleTypes";
+import { useEffect } from "react";
 
 interface UserAnswersSummaryProps {
   dict: Dictionary;
@@ -11,6 +12,20 @@ interface UserAnswersSummaryProps {
 export default function UserAnswersSummary({ dict }: UserAnswersSummaryProps) {
   const shortFormData = useCoupleStore((state) => state.shortFormData);
   const fullFormData = useCoupleStore((state) => state.fullFormData);
+  const setShortFormData = useCoupleStore((state) => state.setShortFormData);
+
+  useEffect(() => {
+    if (!shortFormData) {
+      const savedData = localStorage.getItem("coupleShortForm");
+      if (savedData) {
+        try {
+          setShortFormData(JSON.parse(savedData));
+        } catch (e) {
+          console.error("Error parsing shortFormData from localStorage", e);
+        }
+      }
+    }
+  }, [shortFormData, setShortFormData]);
 
   if (!shortFormData && !fullFormData) {
     return null;

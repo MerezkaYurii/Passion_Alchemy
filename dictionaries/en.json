@@ -187,15 +187,15 @@
   },
   "CoupleResult": {
     "title": "Couple Analysis Result:",
-    "full_analysis": "Full analysis of your sexuality - only $27 ",
+    "full_analysis": "Full analysis of your sexuality - only $17.90 ",
     "full_analysis_text": "Unlock the potential of your relationship! Take a short questionnaire to discover your couple's sexual constitution, find points of connection, and release inner blocks. Your personalized analysis for two will be ready in just 2-3 minutes.",
-    "full_analysis_button": "Get full analysis for $27"
+    "full_analysis_button": "Get full analysis for $17.90"
   },
   "LonersResult": {
     "title": "Your personal analysis:",
-    "full_analysis": "Full analysis of your sexuality - only $17 ",
+    "full_analysis": "Full analysis of your sexuality - only $12.90 ",
     "full_analysis_text": "Discover your sexual script, constitution, and hidden blocks. Answer a few questions in the additional form and get a full analysis in just 2-3 minutes!",
-    "full_analysis_button": "Get full analysis for $17"
+    "full_analysis_button": "Get full analysis for $12.90"
   },
   "resultPage": {
     "title": "Your personal analysis",
@@ -474,6 +474,12 @@
   "AnsweresAILonersFull": {
     "result": "Result not found."
   },
+
+  "SuccessPage": {
+    "Error": "Error checking payment",
+    "text": " Failed to confirm payment or session not found."
+  },
+
   "footer": {
     "title": "«Passion Alchemy»",
     "text": "made with"
