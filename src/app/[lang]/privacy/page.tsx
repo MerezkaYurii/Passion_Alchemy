@@ -1,11 +1,11 @@
-'use client';
-import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import React from 'react';
+"use client";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import React from "react";
 
 export default function PrivacyPage() {
   const params = useParams();
-  const lang = params?.lang || 'en';
+  const lang = params?.lang || "en";
 
   return (
     <main className="max-w-4xl mx-auto px-4 py-12 text-gray-200">
@@ -19,7 +19,7 @@ export default function PrivacyPage() {
         <h1 className="text-3xl font-bold mb-6 text-white">Privacy Policy</h1>
 
         <div className="space-y-6 text-base leading-relaxed">
-          <p>Your privacy is extremely important to us at SmartyHub.</p>
+          <p>Your privacy is extremely important to us at CuriosityHub.</p>
 
           <section>
             <h2 className="text-xl font-semibold mb-2 text-white">

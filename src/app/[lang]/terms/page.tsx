@@ -1,11 +1,11 @@
-'use client';
-import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import React from 'react';
+"use client";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import React from "react";
 
 export default function TermsPage() {
   const params = useParams();
-  const lang = params?.lang || 'en';
+  const lang = params?.lang || "en";
   return (
     <main className="max-w-4xl mx-auto px-4 py-12 text-gray-200">
       <Link
@@ -19,9 +19,9 @@ export default function TermsPage() {
 
         <div className="space-y-6 text-base leading-relaxed">
           <p>
-            Welcome to SmartyHub ecosystem (including Passion Alchemy, Destiny
-            Lines, and Style Aura). By using our websites, you agree to the
-            following terms:
+            Welcome to CuriosityHub ecosystem (including Passion Alchemy,
+            Destiny Lines, and Style Aura). By using our websites, you agree to
+            the following terms:
           </p>
 
           <section>

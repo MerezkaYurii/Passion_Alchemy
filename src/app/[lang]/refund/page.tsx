@@ -1,11 +1,11 @@
-'use client';
-import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import React from 'react';
+"use client";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import React from "react";
 
 export default function RefundPage() {
   const params = useParams();
-  const lang = params?.lang || 'en';
+  const lang = params?.lang || "en";
 
   return (
     <main className="max-w-4xl mx-auto px-4 py-12 text-gray-200">
@@ -43,13 +43,13 @@ export default function RefundPage() {
             <p>
               If you experience a technical failure where payment was deducted
               but access/report was not delivered, please contact our support
-              team at{' '}
+              team at{" "}
               <a
-                href="mailto:yuriimerezka@gmail.com"
+                href="mailto:curiosityhub.contact@gmail.com"
                 className="text-blue-400 underline hover:text-blue-300"
               >
-                yuriimerezka@gmail.com
-              </a>{' '}
+                curiosityhub.contact@gmail.com
+              </a>{" "}
               within 14 days with your transaction details. Verified technical
               issues will be refunded in full.
             </p>
