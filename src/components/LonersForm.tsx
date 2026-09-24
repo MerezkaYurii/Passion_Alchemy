@@ -41,7 +41,14 @@ export default function LonersForm({ onResult }: LonersFormProps) {
     try {
       const currentLanguage = (dict?.header?.language as "ru" | "en") || "en";
 
-      // Формируем payload через новый хелпер
+      const langMap: Record<string, string> = {
+        Русский: "ru",
+        English: "en",
+      };
+      const shortLang =
+        langMap[currentLanguage] || currentLanguage.toLowerCase();
+      localStorage.setItem("app_lang", shortLang);
+
       const payload = buildLonerAIPayload(formData, {}, currentLanguage, dict);
 
       const res = await fetch("/api/loners", {

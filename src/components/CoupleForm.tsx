@@ -105,6 +105,14 @@ export default function CoupleForm({
     try {
       const currentLanguage = dict?.header?.language || "en";
 
+      const langMap: Record<string, string> = {
+        Русский: "ru",
+        English: "en",
+      };
+      const shortLang =
+        langMap[currentLanguage] || currentLanguage.toLowerCase();
+      localStorage.setItem("app_lang", shortLang);
+
       const formatPartner = (partnerData: typeof formData.partner1) => {
         const result: Record<string, ReturnType<typeof formatAIField>> = {};
         Object.entries(partnerData).forEach(([key, val]) => {

@@ -100,6 +100,7 @@ export default async function RootLayout({
             </footer>
           </div>
         </DictionaryProvider>
+        <script src="https://gumroad.com/js/gumroad.js" async></script>
       </body>
     </html>
   );

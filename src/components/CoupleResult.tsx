@@ -3,6 +3,7 @@
 import { CoupleAnalysisResult } from "@/app/types/coupleTypes";
 import { useRouter } from "next/navigation";
 import { Dictionary } from "@/i18n-config";
+import { openGumroadCheckout } from "@/app/lib/openGumroad";
 
 interface ResultProps {
   report: CoupleAnalysisResult | null;
@@ -44,7 +45,8 @@ export default function CoupleResult({ report, lang, dict }: ResultProps) {
           // }
 
           onClick={() => {
-            router.push(`/${lang}/couplePaidForm`);
+            // router.push(`/${lang}/couplePaidForm`);
+            openGumroadCheckout("coupleFullResult", lang);
           }}
           className="px-6 py-3 bg-[#0f3995] border-[#0f3995] hover:bg-[#0f3995]/70 text-white font-light rounded-full shadow-xs hover:shadow-white"
         >

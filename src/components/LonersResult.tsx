@@ -1,5 +1,6 @@
 "use client";
 
+import { openGumroadCheckout } from "@/app/lib/openGumroad";
 import { LonersAnalysisResult } from "@/app/types/lonersTypes";
 import { Dictionary } from "@/i18n-config";
 import { useRouter } from "next/navigation";
@@ -44,7 +45,8 @@ export default function LonersResult({ report, lang, dict }: ResultProps) {
           //   )
           // }
           onClick={() => {
-            router.push(`/${lang}/lonersPaidForm`);
+            // router.push(`/${lang}/lonersPaidForm`);
+            openGumroadCheckout("lonersFullResult", lang);
           }}
           className="px-6 py-3 bg-[#0f3995] border-[#0f3995] hover:bg-[#0f3995]/70 text-white font-light rounded-full shadow-xs hover:shadow-white"
         >
